@@ -127,14 +127,14 @@
 					} ]
 				}, {
 					id : '4',
-					text : '订单管理',
+					text : '流程管理',
 					icon : 'icon-envelope',
 					url : '',
 					menus : [ {
 						id : '41',
-						text : '订单查询',
+						text : '流程部署',
 						icon : 'icon-glass',
-						url : '/Order/Query'
+						url : '${ctx}/workflow/process-list.do'
 					}, {
 						id : '42',
 						text : '订单排产',
