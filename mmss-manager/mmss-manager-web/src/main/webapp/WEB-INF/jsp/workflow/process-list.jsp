@@ -100,18 +100,19 @@ legend {
 										<i class="glyphicon glyphicon-folder-open"></i> 文件部署
 									</button>
 								</p>
-								
-									<fieldset id="arrange" class="collapse">
-										<legend>部署新流程</legend>
-										<p>
-											<strong>支持文件格式：</strong>zip、bar、bpmn、bpmn20.xml
-										</p>
-										<form action="${ctx }/workflow/deploy.do" method="post" enctype="multipart/form-data">
-											<input type="file" name="file" />
-											<input type="submit" value="Submit" />
-										</form>
-									</fieldset>
-								
+
+								<fieldset id="arrange" class="collapse">
+									<legend>部署新流程</legend>
+									<p>
+										<strong>支持文件格式：</strong>zip、bar、bpmn、bpmn20.xml
+									</p>
+									<form action="${ctx }/workflow/deploy.do" method="post"
+										enctype="multipart/form-data">
+										<input type="file" name="file" /> <input type="submit"
+											value="提交" />
+									</form>
+								</fieldset>
+
 								<br />
 								<table class="table table-bordered  text-center table-striped">
 									<thead>
@@ -129,35 +130,38 @@ legend {
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${page.result }" var="object">
-				<c:set var="process" value="${object[0] }" />
-				<c:set var="deployment" value="${object[1] }" />
-										<tr>
-					<td>${process.id }</td>
-					<td>${process.deploymentId }</td>
-					<td>${process.name }</td>
-					<td>${process.key }</td>
-					<td>${process.version }</td>
-					<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=xml'>${process.resourceName }</a></td>
-					<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>${process.diagramResourceName }</a></td>
-					<td>${deployment.deploymentTime }</td>
-					<td>${process.suspended} |
-						<c:if test="${process.suspended }">
-							<a href="processdefinition/update/active/${process.id}">激活</a>
-						</c:if>
-						<c:if test="${!process.suspended }">
-							<a href="processdefinition/update/suspend/${process.id}">挂起</a>
-						</c:if>
-					</td>
-					<td>
-                        <a href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a>
-                        <a href='${ctx }/workflow/process/convert-to-model/${process.id}'>转换为Model</a>
-                    </td>
-				</tr>
+										<c:forEach items="${page.result }" var="object">
+											<c:set var="process" value="${object[0] }" />
+											<c:set var="deployment" value="${object[1] }" />
+											<tr>
+												<td>${process.id }</td>
+												<td>${process.deploymentId }</td>
+												<td>${process.name }</td>
+												<td>${process.key }</td>
+												<td>${process.version }</td>
+												<td><a target="_blank"
+													href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=xml'>${process.resourceName }</a></td>
+												<td><a target="_blank"
+													href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>${process.diagramResourceName }</a></td>
+												<td>${deployment.deploymentTime }</td>
+												<td>${process.suspended}|<c:if
+														test="${process.suspended }">
+														<a href="processdefinition/update/active/${process.id}">激活</a>
+													</c:if> <c:if test="${!process.suspended }">
+														<a href="processdefinition/update/suspend/${process.id}">挂起</a>
+													</c:if>
+												</td>
+												<td><a
+													href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a>
+													<a
+													href='${ctx }/workflow/process/convert-to-model/${process.id}'>转换为Model</a>
+												</td>
+											</tr>
 										</c:forEach>
-                                           </tbody>
+									</tbody>
 								</table>
-								<tags:pagination page="${page}"paginationSize="${page.pageSize}" />
+								<tags:pagination page="${page}"
+									paginationSize="${page.pageSize}" />
 							</div>
 						</div>
 					</div>

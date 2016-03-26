@@ -43,4 +43,24 @@
 	    WHERE sys_user_id = #{id}))
   </select>
   
+   <!-- 根据用户id查询子菜单 -->
+  <select id="findSubMenuListByUserId"  parameterType="string" resultType="com.mmss.pojo.SysPermission">
+  		SELECT 
+	  * 
+	FROM
+	  sys_permission 
+	WHERE TYPE = 'submenu' 
+	  AND id IN 
+	  (SELECT 
+	    sys_permission_id 
+	  FROM
+	    sys_role_permission 
+	  WHERE sys_role_id IN 
+	    (SELECT 
+	      sys_role_id 
+	    FROM
+	      sys_user_role 
+	    WHERE sys_user_id = #{id}))
+  </select>
+  
 </mapper>

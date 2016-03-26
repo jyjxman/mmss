@@ -18,8 +18,18 @@ public class SysPermission implements java.io.Serializable{
     private String sortstring;
 
     private String available;
+    private String icon;
+    
 
-    public Long getId() {
+    public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -90,4 +100,13 @@ public class SysPermission implements java.io.Serializable{
     public void setAvailable(String available) {
         this.available = available == null ? null : available.trim();
     }
+
+	@Override
+	public String toString() {
+		return "SysPermission [id=" + id + ", name=" + name + ", type=" + type + ", url=" + url + ", percode=" + percode
+				+ ", parentid=" + parentid + ", parentids=" + parentids + ", sortstring=" + sortstring + ", available="
+				+ available + "]";
+	}
+    
+    
 }

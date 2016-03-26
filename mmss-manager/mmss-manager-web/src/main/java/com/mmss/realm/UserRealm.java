@@ -67,15 +67,19 @@ public class UserRealm extends AuthorizingRealm {
 
 		// 根据用户id取出菜单
 		List<SysPermission> menus = null;
+		List<SysPermission> subMenus = null;
 		try {
 			// 通过service取出菜单
 			menus = userService.findMenuListByUserId(sysUser.getId());
+			subMenus = userService.findSubMenuListByUserId(sysUser.getId());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 将用户菜单 设置到activeUser
 		activeUser.setMenus(menus);
+		//将用户子菜单设置到activeUser
+		activeUser.setSubmenus(subMenus);
 
 		// 将activeUser设置simpleAuthenticationInfo
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(activeUser, password,

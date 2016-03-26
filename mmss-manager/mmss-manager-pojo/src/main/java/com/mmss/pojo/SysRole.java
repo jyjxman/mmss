@@ -30,4 +30,10 @@ public class SysRole {
     public void setAvailable(String available) {
         this.available = available == null ? null : available.trim();
     }
+
+	@Override
+	public String toString() {
+		return "SysRole [id=" + id + ", name=" + name + ", available=" + available + "]";
+	}
+    
 }

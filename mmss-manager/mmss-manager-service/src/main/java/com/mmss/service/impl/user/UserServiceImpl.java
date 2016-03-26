@@ -62,4 +62,10 @@ public class UserServiceImpl implements UserService {
 		return sysUserMapper.findUserById(userid);
 	}
 
+	@Override
+	public List<SysPermission> findSubMenuListByUserId(String userid) throws Exception {
+		// TODO Auto-generated method stub
+		return sysPermissionMapperCustom.findSubMenuListByUserId(userid);
+	}
+
 }

@@ -13,6 +13,8 @@ public interface UserService {
 	List<SysPermission> findMenuListByUserId(String id) throws Exception;
 
 	List<SysPermission> findPermissionListByUserId(String userid) throws Exception;
+	
+	List<SysPermission> findSubMenuListByUserId(String userid) throws Exception;
 
 	List<SysUser> getByConditionPage(SysUserQueryModel sysUserQueryModel);
 

@@ -26,7 +26,7 @@
 		<ul class="nav navbar-nav navbar-right" style="margin-right: 25px;">
 			<li><a href="#"><span class="badge"
 					style="background: #AC2925;">23</span></a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
+			<li><a href="${ctx }/loginout.do"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
 		</ul>
 		</nav>
 		<div class="sidebar" id="sidebar">
@@ -60,9 +60,17 @@
 	<script src="js/sidebar-menu.js"></script>
 	<script src="js/bootstrap-tab.js"></script>
 	<script type="text/javascript">
+	  
+		
+	 
 		$(function() {
-			$('#menu').sidebarMenu({
-				data : [ {
+			
+			
+			 	 $.post("${ctx}/userController/getMenus.do",
+					          function(data){
+						$('#menu').sidebarMenu(data);
+					          }, "json");  
+				/* $('#menu').sidebarMenu({data : [ {
 					id : '1',
 					text : '系统设置',
 					icon : 'icon-cog',
@@ -134,7 +142,7 @@
 						id : '41',
 						text : '流程部署',
 						icon : 'icon-glass',
-						url : '${ctx}/workflow/process-list.do'
+						url : "${ctx}/workflow/process-list.do"
 					}, {
 						id : '42',
 						text : '订单排产',
@@ -166,8 +174,9 @@
 						icon : 'icon-glass',
 						url : '/Order/Import'
 					} ]
-				} ]
-			});
+				} ] 
+			
+				});  */
 		});
 	</script>
 </body>
