@@ -14,8 +14,20 @@ public class SysUser extends BaseModel{
     private String salt;
 
     private String locked;
+    
+    private String deptid;
+    
+    
 
-    public String getId() {
+    public String getDeptid() {
+		return deptid;
+	}
+
+	public void setDeptid(String deptid) {
+		this.deptid = deptid;
+	}
+
+	public String getId() {
         return id;
     }
 
