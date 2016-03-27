@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmss.mapper.SysRepositoryMapper" >
+  <resultMap id="BaseResultMap" type="com.mmss.pojo.SysRepository" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="repository_name" property="repositoryName" jdbcType="VARCHAR" />
+    <result column="repository_address" property="repositoryAddress" jdbcType="VARCHAR" />
+    <result column="repository_area" property="repositoryArea" jdbcType="REAL" />
+    <result column="material_type" property="materialType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, repository_name, repository_address, repository_area, material_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysRepositoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_repository
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_repository
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_repository
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmss.pojo.SysRepositoryExample" >
+    delete from sys_repository
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmss.pojo.SysRepository" >
+    insert into sys_repository (id, repository_name, repository_address, 
+      repository_area, material_type)
+    values (#{id,jdbcType=BIGINT}, #{repositoryName,jdbcType=VARCHAR}, #{repositoryAddress,jdbcType=VARCHAR}, 
+      #{repositoryArea,jdbcType=REAL}, #{materialType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmss.pojo.SysRepository" >
+    insert into sys_repository
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="repositoryName != null" >
+        repository_name,
+      </if>
+      <if test="repositoryAddress != null" >
+        repository_address,
+      </if>
+      <if test="repositoryArea != null" >
+        repository_area,
+      </if>
+      <if test="materialType != null" >
+        material_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="repositoryName != null" >
+        #{repositoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="repositoryAddress != null" >
+        #{repositoryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="repositoryArea != null" >
+        #{repositoryArea,jdbcType=REAL},
+      </if>
+      <if test="materialType != null" >
+        #{materialType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmss.pojo.SysRepositoryExample" resultType="java.lang.Integer" >
+    select count(*) from sys_repository
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_repository
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.repositoryName != null" >
+        repository_name = #{record.repositoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repositoryAddress != null" >
+        repository_address = #{record.repositoryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repositoryArea != null" >
+        repository_area = #{record.repositoryArea,jdbcType=REAL},
+      </if>
+      <if test="record.materialType != null" >
+        material_type = #{record.materialType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_repository
+    set id = #{record.id,jdbcType=BIGINT},
+      repository_name = #{record.repositoryName,jdbcType=VARCHAR},
+      repository_address = #{record.repositoryAddress,jdbcType=VARCHAR},
+      repository_area = #{record.repositoryArea,jdbcType=REAL},
+      material_type = #{record.materialType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmss.pojo.SysRepository" >
+    update sys_repository
+    <set >
+      <if test="repositoryName != null" >
+        repository_name = #{repositoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="repositoryAddress != null" >
+        repository_address = #{repositoryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="repositoryArea != null" >
+        repository_area = #{repositoryArea,jdbcType=REAL},
+      </if>
+      <if test="materialType != null" >
+        material_type = #{materialType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysRepository" >
+    update sys_repository
+    set repository_name = #{repositoryName,jdbcType=VARCHAR},
+      repository_address = #{repositoryAddress,jdbcType=VARCHAR},
+      repository_area = #{repositoryArea,jdbcType=REAL},
+      material_type = #{materialType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

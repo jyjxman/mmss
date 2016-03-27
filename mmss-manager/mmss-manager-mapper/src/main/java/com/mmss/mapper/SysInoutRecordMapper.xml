@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmss.mapper.SysInoutRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mmss.pojo.SysInoutRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="repertory_id" property="repertoryId" jdbcType="BIGINT" />
+    <result column="batch_number" property="batchNumber" jdbcType="BIGINT" />
+    <result column="storage" property="storage" jdbcType="REAL" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, material_id, repertory_id, batch_number, storage, principal, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysInoutRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_inout_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_inout_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_inout_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmss.pojo.SysInoutRecordExample" >
+    delete from sys_inout_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmss.pojo.SysInoutRecord" >
+    insert into sys_inout_record (id, material_id, repertory_id, 
+      batch_number, storage, principal, 
+      time)
+    values (#{id,jdbcType=BIGINT}, #{materialId,jdbcType=BIGINT}, #{repertoryId,jdbcType=BIGINT}, 
+      #{batchNumber,jdbcType=BIGINT}, #{storage,jdbcType=REAL}, #{principal,jdbcType=VARCHAR}, 
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmss.pojo.SysInoutRecord" >
+    insert into sys_inout_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="repertoryId != null" >
+        repertory_id,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="storage != null" >
+        storage,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=BIGINT},
+      </if>
+      <if test="repertoryId != null" >
+        #{repertoryId,jdbcType=BIGINT},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=BIGINT},
+      </if>
+      <if test="storage != null" >
+        #{storage,jdbcType=REAL},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmss.pojo.SysInoutRecordExample" resultType="java.lang.Integer" >
+    select count(*) from sys_inout_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_inout_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialId != null" >
+        material_id = #{record.materialId,jdbcType=BIGINT},
+      </if>
+      <if test="record.repertoryId != null" >
+        repertory_id = #{record.repertoryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.batchNumber != null" >
+        batch_number = #{record.batchNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.storage != null" >
+        storage = #{record.storage,jdbcType=REAL},
+      </if>
+      <if test="record.principal != null" >
+        principal = #{record.principal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_inout_record
+    set id = #{record.id,jdbcType=BIGINT},
+      material_id = #{record.materialId,jdbcType=BIGINT},
+      repertory_id = #{record.repertoryId,jdbcType=BIGINT},
+      batch_number = #{record.batchNumber,jdbcType=BIGINT},
+      storage = #{record.storage,jdbcType=REAL},
+      principal = #{record.principal,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmss.pojo.SysInoutRecord" >
+    update sys_inout_record
+    <set >
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=BIGINT},
+      </if>
+      <if test="repertoryId != null" >
+        repertory_id = #{repertoryId,jdbcType=BIGINT},
+      </if>
+      <if test="batchNumber != null" >
+        batch_number = #{batchNumber,jdbcType=BIGINT},
+      </if>
+      <if test="storage != null" >
+        storage = #{storage,jdbcType=REAL},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysInoutRecord" >
+    update sys_inout_record
+    set material_id = #{materialId,jdbcType=BIGINT},
+      repertory_id = #{repertoryId,jdbcType=BIGINT},
+      batch_number = #{batchNumber,jdbcType=BIGINT},
+      storage = #{storage,jdbcType=REAL},
+      principal = #{principal,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
