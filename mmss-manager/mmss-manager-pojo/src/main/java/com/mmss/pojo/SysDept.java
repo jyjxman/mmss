@@ -1,22 +1,37 @@
 package com.mmss.pojo;
 
-public class SysDept {
-    private String id;
+import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class SysDept implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3597643227396465141L;
+
+	private Long id;
 
     private String name;
 
-    private String parentid;
-
+    private Long parentid;
+    @JsonProperty("iconCls")
     private String icon;
 
-    private Integer state;
+    private Byte sortstring;
 
-    public String getId() {
+    private String code;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createtime;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -27,12 +42,12 @@ public class SysDept {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getParentid() {
+    public Long getParentid() {
         return parentid;
     }
 
-    public void setParentid(String parentid) {
-        this.parentid = parentid == null ? null : parentid.trim();
+    public void setParentid(Long parentid) {
+        this.parentid = parentid;
     }
 
     public String getIcon() {
@@ -43,11 +58,27 @@ public class SysDept {
         this.icon = icon == null ? null : icon.trim();
     }
 
-    public Integer getState() {
-        return state;
+    public Byte getSortstring() {
+        return sortstring;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setSortstring(Byte sortstring) {
+        this.sortstring = sortstring;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 }

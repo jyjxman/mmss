@@ -28,4 +28,8 @@ public interface SysUserRoleMapper {
     int updateByPrimaryKeySelective(SysUserRole record);
 
     int updateByPrimaryKey(SysUserRole record);
+    
+	List<SysUserRole> findUserRoleByUserId(String id);
+
+	void deleteById(String id);
 }

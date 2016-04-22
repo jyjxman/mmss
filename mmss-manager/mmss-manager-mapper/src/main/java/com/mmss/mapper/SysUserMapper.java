@@ -1,12 +1,13 @@
 package com.mmss.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.mmss.pojo.SysUser;
 import com.mmss.pojo.SysUserExample;
 import com.mmss.pojo.SysUserQueryModel;
 
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import com.mmss.utils.PageInfo;
+import com.mmss.vo.UserVo;
 public interface SysUserMapper {
     int countByExample(SysUserExample example);
 
@@ -33,4 +34,18 @@ public interface SysUserMapper {
     List<SysUser> getByConditionPage(SysUserQueryModel sysUserQueryModel);
 
 	SysUser findUserById(String userid);
+
+	List<SysUser> queryUserList();
+
+	List findUserPageCondition(PageInfo pageInfo);
+
+	int findUserPageCount(PageInfo pageInfo);
+
+	SysUser findUserByLoginName(String username);
+
+	UserVo findUserVoById(String id);
+
+	void updateUser(SysUser user);
+
+	void deleteById(String id);
 }

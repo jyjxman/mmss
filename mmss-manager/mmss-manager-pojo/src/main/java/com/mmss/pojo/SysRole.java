@@ -1,7 +1,14 @@
 package com.mmss.pojo;
 
-public class SysRole {
-    private String id;
+import java.io.Serializable;
+
+public class SysRole implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1389865408116452576L;
+
+	private String id;
 
     private String name;
 

@@ -66,7 +66,7 @@
 		$(function() {
 			
 			
-			 	 $.post("${ctx}/userController/getMenus.do",
+			 	 $.post("${ctx}/user/getMenus.do",
 					          function(data){
 						$('#menu').sidebarMenu(data);
 					          }, "json");  

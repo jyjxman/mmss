@@ -1,352 +1,232 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/commons/global.jsp" %>
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1 , user-scalable=no">
-<%@ include file="../common/global.jsp"%>
-<link href="${ctx}/css/index.css" rel="stylesheet">
-<link href="${ctx}/css/bootstrap.min.new.css" rel="stylesheet">
+<%@ include file="/commons/basejs.jsp" %>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户管理</title>
+    <script type="text/javascript">
+
+    var dataGrid;
+    var organizationTree;
+
+    $(function() {
+        organizationTree = $('#organizationTree').tree({
+            url : '${path }/organization/tree',
+            parentField : 'parentid',
+            lines : true,
+            onClick : function(node) {
+                dataGrid.datagrid('load', {
+                    deptId: node.id
+                });
+            }
+        });
+
+        dataGrid = $('#dataGrid').datagrid({
+            url : '${path }/user/dataGrid',
+            fit : true,
+            striped : true,
+            rownumbers : true,
+            pagination : true,
+            singleSelect : true,
+            idField : 'id',
+            sortName : 'createtime',
+            sortOrder : 'asc',
+            pageSize : 20,
+            pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
+            columns : [ [ {
+                width : '80',
+                title : '登录名',
+                field : 'usercode',
+                sortable : true
+            }, {
+                width : '80',
+                title : '姓名',
+                field : 'username',
+                sortable : true
+            },{
+                width : '80',
+                title : '部门ID',
+                field : 'deptId',
+                hidden : true
+            },{
+                width : '80',
+                title : '所属部门',
+                field : 'deptName'
+            },{
+                width : '130s',
+                title : '创建时间',
+                field : 'createtime',
+                sortable : true
+            }, {
+                width : '80',
+                title : '住址',
+                field : 'adreess',
+                sortable : true
+            },{
+                width : '120',
+                title : '电话',
+                field : 'phone',
+                sortable : true
+            }, 
+            {
+                width : '200',
+                title : '角色',
+                field : 'rolesList',
+                sortable : true,
+                formatter : function(value, row, index) {
+                    var roles = [];
+                    for(var i = 0; i< value.length; i++) {
+                        roles.push(value[i].name);  
+                    }
+                    return(roles.join('\n'));
+                }
+            },{
+                width : '60',
+                title : '状态',
+                field : 'locked',
+                sortable : true,
+                formatter : function(value, row, index) {
+                    switch (value) {
+                    case '0':
+                        return '正常';
+                    case '1':
+                        return '停用';
+                    }
+                }
+            } , {
+                field : 'action',
+                title : '操作',
+                width : 130,
+                formatter : function(value, row, index) {
+                    var str = '';
+                        <shiro:hasPermission name="user:edit">
+                            str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'icon-edit\'" onclick="editFun(\'{0}\');" >编辑</a>', row.id);
+                        </shiro:hasPermission>
+                        <shiro:hasPermission name="user:del">
+                            str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
+                            str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-del" data-options="plain:true,iconCls:\'icon-del\'" onclick="deleteFun(\'{0}\');" >删除</a>', row.id);
+                        </shiro:hasPermission>
+                    return str;
+                }
+            }] ],
+            onLoadSuccess:function(data){
+                $('.user-easyui-linkbutton-edit').linkbutton({text:'编辑',plain:true,iconCls:'icon-edit'});
+                $('.user-easyui-linkbutton-del').linkbutton({text:'删除',plain:true,iconCls:'icon-del'});
+            },
+            toolbar : '#toolbar'
+        });
+    });
+    
+    function addFun() {
+        $.modalDialog({
+            title : '添加',
+            width : 500,
+            height : 300,
+            href : '${path }/user/addPage',
+            buttons : [ {
+                text : '添加',
+                handler : function() {
+                    $.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+                    var f = $.modalDialog.handler.find('#userAddForm');
+                    f.submit();
+                }
+            } ]
+        });
+    }
+    
+    function deleteFun(id) {
+        if (id == undefined) {//点击右键菜单才会触发这个
+            var rows = dataGrid.datagrid('getSelections');
+            id = rows[0].id;
+        } else {//点击操作里面的删除图标会触发这个
+            dataGrid.datagrid('unselectAll').datagrid('uncheckAll');
+        }
+        $.messager.confirm('询问', '您是否要删除当前用户？', function(b) {
+            if (b) {
+                var currentUserId = '${sessionInfo.id}';/*当前登录用户的ID*/
+                if (currentUserId != id) {
+                    progressLoad();
+                    $.post('${path }/user/delete', {
+                        id : id
+                    }, function(result) {
+                        if (result.success) {
+                            $.messager.alert('提示', result.msg, 'info');
+                            dataGrid.datagrid('reload');
+                        }
+                        progressClose();
+                    }, 'JSON');
+                } else {
+                    $.messager.show({
+                        title : '提示',
+                        msg : '不可以删除自己！'
+                    });
+                }
+            }
+        });
+    }
+    
+    function editFun(id) {
+        if (id == undefined) {
+            var rows = dataGrid.datagrid('getSelections');
+            id = rows[0].id;
+        } else {
+            dataGrid.datagrid('unselectAll').datagrid('uncheckAll');
+        }
+       $.modalDialog({
+            title : '编辑',
+            width : 500,
+            height : 300,
+            href : '${path }/user/editPage?id=' + id,
+            buttons : [ {
+                text : '确定',
+                handler : function() {
+                    $.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+                    var f = $.modalDialog.handler.find('#userEditForm');
+                    f.submit();
+                }
+            } ]
+        });
+    }
+    
+    function searchFun() {
+        dataGrid.datagrid('load', $.serializeObject($('#searchForm')));
+    }
+    function cleanFun() {
+        $('#searchForm input').val('');
+        dataGrid.datagrid('load', {});
+    }
+    </script>
 </head>
-<body>
-<!--导航-->
-<nav class="navbar navbar-default">
-    <div class="container">
-        <!--小屏幕导航按钮和logo-->
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="first.do" class="navbar-brand">MMSS</a>
-        </div>
-        <!--小屏幕导航按钮和logo-->
-        <!--导航-->
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="first.do"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;后台首页</a></li>
-                <li class="active"><a href="user_list.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;权限管理</a></li>
-                <li><a href="content.html"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;调度管理</a></li>
-                <li><a href="tag.html"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;物资管理</a></li>
-                <li><a href="tag.html"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;车辆管理</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        admin
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dLabel">
-                        <li><a href="index.html"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;&nbsp;前台首页</a></li>
-                        <li><a href="index.html"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;个人主页</a></li>
-                        <li><a href="index.html"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a></li>
-                        <li><a href="index.html"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;账户中心</a></li>
-                        <li><a href="index.html"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;我的收藏</a></li>
-                    </ul>
-                </li>
-                <li><a href="loginout.do"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
-            </ul>
-        </div>
-        <!--导航-->
-
-    </div>
-</nav>
-<!--导航-->
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="list-group">
-                <a href="user_list.html" class="list-group-item active">用户管理</a>
-                <a href="uesr_search.html" class="list-group-item">用户搜索</a>
-                <a href="" role="button"  class="list-group-item" data-toggle="modal" data-target="#myModal">添加用户</a>
-            </div>
-        </div>
-        <div class="col-md-10">
-            <div class="page-header">
-                <h1>用户管理</h1>
-            </div>
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="user_list.html">用户列表</a>
-                </li>
-                <li>
-                    <a href="uesr_search.html">用户搜索</a>
-                </li>
-                <li>
-                    <a href="" role="button" data-toggle="modal" data-target="#myModal">添加用户</a>
-                </li>
-            </ul>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>用户名</th>
-                        <th>邮箱</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>张三</td>
-                        <td>123456789@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                   <li><a href="#">编辑</a></li>
-                                   <li><a href="#">删除</a></li>
-                                   <li><a href="#">锁定</a></li>
-                                   <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
+<body class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'north',border:false" style="height: 30px; overflow: hidden;background-color: #fff">
+        <form id="searchForm">
+            <table>
+                <tr>
+                    <th>姓名:</th>
+                    <td><input name="username" placeholder="请输入用户姓名"/></td>
+                    <th>创建时间:</th>
+                    <td>
+                    <input name="createdateStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />至<input  name="createdateEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />
+                    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchFun();">查询</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="cleanFun();">清空</a>
+                    </td>
+                </tr>
             </table>
-            <nav class="pull-right">
-                <ul class="pagination">
-                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2 </a></li>
-                    <li><a href="#">3 </a></li>
-                    <li><a href="#">4 </a></li>
-                    <li><a href="#">5 </a></li>
-                    <li><a href="#">6 </a></li>
-                    <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
-                </ul>
-            </nav>
-        </div>
+        </form>
     </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
-            </div>
-            <div class="modal-body">
-                <form action="#">
-                    <div class="form-group">
-                        <label for="addname">用户名</label>
-                        <input type="text" id="addname" class="form-control" placeholder="用户名">
-                    </div>
-                    <div class="form-group">
-                        <label for="addpassword">用户密码</label>
-                        <input type="text" id="addpassword" class="form-control" placeholder="请输入用户密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="addpassword1">确认用户密码</label>
-                        <input type="text" id="addpassword1" class="form-control" placeholder="请确认输入用户密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="addemail">请输入用户邮箱</label>
-                        <input type="email" id="addemail" class="form-control" placeholder="请输入用户邮箱">
-                    </div>
-                    <div class="form-group">
-                        <label for="addyonghuzu">所属用户组</label>
-                        <select id="addyonghuzu" class="form-control">
-                            <option>限制会员</option>
-                            <option>新手上路</option>
-                            <option>组册会员</option>
-                            <option>中级会员</option>
-                            <option>高级会员</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">提交</button>
-            </div>
-        </div>
+    <div data-options="region:'center',border:true,title:'用户列表'" >
+        <table id="dataGrid" data-options="fit:true,border:false"></table>
     </div>
-</div>
-<!--footer-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    Copyright&nbsp;©&nbsp;2012-2015&nbsp;&nbsp;www.maiziedu.com&nbsp;&nbsp;蜀ICP备13014270号-4
-                </p>
-            </div>
-        </div>
+    <div data-options="region:'west',border:true,split:false,title:'组织机构'"  style="width:150px;overflow: hidden; ">
+        <ul id="organizationTree"  style="width:160px;margin: 10px 10px 10px 10px">
+        </ul>
     </div>
-</footer>
-<!--footer-->
-
+    <div id="toolbar" style="display: none;">
+        <shiro:hasPermission name="user:add">
+            <a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加</a>
+        </shiro:hasPermission>
+    </div>
 </body>
 </html>

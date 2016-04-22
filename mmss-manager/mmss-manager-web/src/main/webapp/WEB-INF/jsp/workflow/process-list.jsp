@@ -125,7 +125,6 @@ legend {
 											<th>XML</th>
 											<th>图片</th>
 											<th>部署时间</th>
-											<th>是否挂起</th>
 											<th>操作</th>
 										</tr>
 									</thead>
@@ -144,17 +143,9 @@ legend {
 												<td><a target="_blank"
 													href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>${process.diagramResourceName }</a></td>
 												<td>${deployment.deploymentTime }</td>
-												<td>${process.suspended}|<c:if
-														test="${process.suspended }">
-														<a href="processdefinition/update/active/${process.id}">激活</a>
-													</c:if> <c:if test="${!process.suspended }">
-														<a href="processdefinition/update/suspend/${process.id}">挂起</a>
-													</c:if>
-												</td>
-												<td><a
+												
+												<td><a class="btn btn-warning"
 													href='${ctx }/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a>
-													<a
-													href='${ctx }/workflow/process/convert-to-model/${process.id}'>转换为Model</a>
 												</td>
 											</tr>
 										</c:forEach>

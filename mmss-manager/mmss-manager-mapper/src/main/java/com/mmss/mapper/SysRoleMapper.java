@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mmss.pojo.SysRole;
 import com.mmss.pojo.SysRoleExample;
+import com.mmss.utils.PageInfo;
 
 public interface SysRoleMapper {
     int countByExample(SysRoleExample example);
@@ -28,4 +29,15 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+	List<SysRole> findRoleAll();
+
+	List findRolePageCondition(PageInfo pageInfo);
+
+	int findRolePageCount(PageInfo pageInfo);
+
+	List<String> findResourceIdListByRoleId(String id);
+
+	List<String> findRoleResourceIdListByRoleId(String id);
+
 }

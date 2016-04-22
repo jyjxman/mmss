@@ -1,7 +1,14 @@
 package com.mmss.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SysPermission implements java.io.Serializable{
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -232895120132798733L;
+
+	private Long id;
 
     private String name;
 
@@ -18,6 +25,7 @@ public class SysPermission implements java.io.Serializable{
     private String sortstring;
 
     private String available;
+    @JsonProperty("iconCls")
     private String icon;
     
 

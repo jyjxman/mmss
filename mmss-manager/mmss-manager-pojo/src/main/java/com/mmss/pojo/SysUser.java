@@ -1,9 +1,17 @@
 package com.mmss.pojo;
 
-import com.mmss.vo.BaseModel;
+import java.io.Serializable;
+import java.util.Date;
 
-public class SysUser extends BaseModel{
-    private String id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class SysUser implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6700813629656881143L;
+
+	private String id;
 
     private String usercode;
 
@@ -13,21 +21,17 @@ public class SysUser extends BaseModel{
 
     private String salt;
 
+    private Long deptId;
+
     private String locked;
-    
-    private String deptid;
-    
-    
 
-    public String getDeptid() {
-		return deptid;
-	}
+    private String adreess;
 
-	public void setDeptid(String deptid) {
-		this.deptid = deptid;
-	}
+    private String phone;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createtime;
 
-	public String getId() {
+    public String getId() {
         return id;
     }
 
@@ -67,6 +71,14 @@ public class SysUser extends BaseModel{
         this.salt = salt == null ? null : salt.trim();
     }
 
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
     public String getLocked() {
         return locked;
     }
@@ -75,10 +87,27 @@ public class SysUser extends BaseModel{
         this.locked = locked == null ? null : locked.trim();
     }
 
-	@Override
-	public String toString() {
-		return "SysUser [id=" + id + ", usercode=" + usercode + ", username=" + username + ", password=" + password
-				+ ", salt=" + salt + ", locked=" + locked + "]";
-	}
-    
+    public String getAdreess() {
+        return adreess;
+    }
+
+    public void setAdreess(String adreess) {
+        this.adreess = adreess == null ? null : adreess.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
 }

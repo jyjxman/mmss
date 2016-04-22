@@ -10,7 +10,7 @@ public interface SysDeptMapper {
 
     int deleteByExample(SysDeptExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(SysDept record);
 
@@ -18,7 +18,7 @@ public interface SysDeptMapper {
 
     List<SysDept> selectByExample(SysDeptExample example);
 
-    SysDept selectByPrimaryKey(String id);
+    SysDept selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") SysDept record, @Param("example") SysDeptExample example);
 
@@ -27,4 +27,10 @@ public interface SysDeptMapper {
     int updateByPrimaryKeySelective(SysDept record);
 
     int updateByPrimaryKey(SysDept record);
+
+	List<SysDept> findOrganizationAllByPidNull();
+
+	List<SysDept> findOrganizationAllByPid(Long id);
+
+	List<SysDept> findOrganizationAll();
 }

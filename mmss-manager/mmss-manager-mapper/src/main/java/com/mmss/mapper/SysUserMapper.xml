@@ -7,7 +7,11 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="BIGINT" />
     <result column="locked" property="locked" jdbcType="CHAR" />
+    <result column="adreess" property="adreess" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, usercode, username, password, salt, locked
+    id, usercode, username, password, salt, dept_id, locked, adreess, phone, createtime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysUserExample" >
     select
@@ -102,11 +106,13 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysUser" >
     insert into sys_user (id, usercode, username, 
-      password, salt, locked
-      )
+      password, salt, dept_id, 
+      locked, adreess, phone, 
+      createtime)
     values (#{id,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=CHAR}
-      )
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, 
+      #{locked,jdbcType=CHAR}, #{adreess,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysUser" >
     insert into sys_user
@@ -126,8 +132,20 @@
       <if test="salt != null" >
         salt,
       </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
       <if test="locked != null" >
         locked,
+      </if>
+      <if test="adreess != null" >
+        adreess,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="createtime != null" >
+        createtime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -146,8 +164,20 @@
       <if test="salt != null" >
         #{salt,jdbcType=VARCHAR},
       </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=BIGINT},
+      </if>
       <if test="locked != null" >
         #{locked,jdbcType=CHAR},
+      </if>
+      <if test="adreess != null" >
+        #{adreess,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -175,8 +205,20 @@
       <if test="record.salt != null" >
         salt = #{record.salt,jdbcType=VARCHAR},
       </if>
+      <if test="record.deptId != null" >
+        dept_id = #{record.deptId,jdbcType=BIGINT},
+      </if>
       <if test="record.locked != null" >
         locked = #{record.locked,jdbcType=CHAR},
+      </if>
+      <if test="record.adreess != null" >
+        adreess = #{record.adreess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -190,7 +232,11 @@
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       salt = #{record.salt,jdbcType=VARCHAR},
-      locked = #{record.locked,jdbcType=CHAR}
+      dept_id = #{record.deptId,jdbcType=BIGINT},
+      locked = #{record.locked,jdbcType=CHAR},
+      adreess = #{record.adreess,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,8 +256,20 @@
       <if test="salt != null" >
         salt = #{salt,jdbcType=VARCHAR},
       </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=BIGINT},
+      </if>
       <if test="locked != null" >
         locked = #{locked,jdbcType=CHAR},
+      </if>
+      <if test="adreess != null" >
+        adreess = #{adreess,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -222,7 +280,11 @@
       username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
-      locked = #{locked,jdbcType=CHAR}
+      dept_id = #{deptId,jdbcType=BIGINT},
+      locked = #{locked,jdbcType=CHAR},
+      adreess = #{adreess,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="getByConditionPage" parameterType="com.mmss.pojo.SysUserQueryModel" resultType="com.mmss.pojo.SysUser">
@@ -231,5 +293,154 @@
   <select id="findUserById" parameterType="java.lang.String" resultType="com.mmss.pojo.SysUser">
   	select * from sys_user where id = #{userid,jdbcType=VARCHAR}
   	</select>
+  	<select id="queryUserList" resultType="com.mmss.pojo.SysUser"> 
+  		select * from sys_user
+  	</select>
   	
+  	 <resultMap id="userVoResultMap" type="com.mmss.vo.UserVo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="usercode" property="usercode" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="locked" property="locked" jdbcType="CHAR"/>
+        <result column="deptId" property="deptId" jdbcType="BIGINT"/>
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="adreess" property="adreess" jdbcType="VARCHAR"/>
+        <result column="deptName" property="deptName" jdbcType="VARCHAR"/>
+        <collection property="rolesList" ofType="com.mmss.pojo.SysRole">
+            <id column="roleId" property="id"/>
+            <result column="roleName" property="name"/>
+        </collection>
+    </resultMap>
+  	<select id="findUserPageCondition" resultMap="userVoResultMap" parameterType="com.mmss.utils.PageInfo">
+        SELECT
+        t.id,
+        t.usercode,
+        t.username,
+        t.`password`,
+        t.`locked`,
+        t.dept_id AS deptId,
+        t.createtime AS createtime,
+        t.phone,
+        t.adreess AS adreess,
+        s.`name` AS deptName,
+        o.id AS roleId,
+        o.`name` AS roleName
+        FROM
+        sys_user t
+        LEFT JOIN sys_user_role r ON t.id = r.sys_user_id
+        LEFT JOIN sys_role o ON r.sys_role_id = o.id
+        LEFT JOIN sys_dept s ON s.id = t.dept_id
+        <where>
+            <if test=" condition.name != null and condition.name != '' ">
+                t.username = #{condition.name}
+            </if>
+            <if test=" condition.deptId != null ">
+                t.dept_id = #{condition.deptId}
+            </if>
+            <if test="condition.startTime != null">
+                <![CDATA[
+            and t.createtime >= #{condition.startTime}
+           ]]>
+            </if>
+            <if test="condition.endTime != null">
+                <![CDATA[
+            and t.createtime <= #{condition.endTime}
+        ]]>
+            </if>
+        </where>
+        LIMIT #{from}, #{size}
+    </select>
+    <select id="findUserPageCount" resultType="java.lang.Integer" parameterType="com.mmss.utils.PageInfo">
+    	 select count(*) count
+        from sys_user t
+        <where>
+            <if test=" condition.name != null and condition.name != '' ">
+                t.username = #{condition.name}
+            </if>
+            <if test=" condition.deptId != null ">
+                t.dept_id = #{condition.deptId}
+            </if>
+            <if test="condition.startTime != null">
+                <![CDATA[
+            and t.createtime >= #{condition.startTime}
+           ]]>
+            </if>
+            <if test="condition.endTime != null">
+                <![CDATA[
+            and t.createtime <= #{condition.endTime}
+        ]]>
+            </if>
+        </where>
+    </select>   
+    
+    
+    <select id="findUserByLoginName" resultMap="BaseResultMap" parameterType = "java.lang.String">
+    	select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where usercode = #{username}
+    </select>	
+    
+     <select id="findUserVoById" resultMap="userVoResultMap" parameterType="java.lang.String">
+     	SELECT
+        t.id,
+        t.usercode,
+        t.username,
+        t.`password`,
+        t.`locked`,
+        t.dept_id AS deptId,
+        t.createtime AS createtime,
+        t.phone,
+        t.adreess AS adreess,
+        s.`name` AS deptName,
+        o.id AS roleId,
+        o.`name` AS roleName
+        FROM
+        sys_user t
+        LEFT JOIN sys_user_role r ON t.id = r.sys_user_id
+        LEFT JOIN sys_role o ON r.sys_role_id = o.id
+        LEFT JOIN sys_dept s ON s.id = t.dept_id
+        <where>
+            t.id = #{id}
+        </where>
+     </select>
+     <update id="updateUser" parameterType="com.mmss.pojo.User">
+        update sys_user
+        <set>
+            <if test="usercode != null">
+                usercode = #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="adreess != null">
+                adreess = #{adreess,jdbcType=VARCHAR},
+            </if>
+            <if test="locked != null">
+                locked = #{locked,jdbcType=CHAR},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+      <delete id="deleteById" parameterType="java.lang.String">
+    delete from sys_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
 </mapper>

@@ -178,4 +178,43 @@
       available = #{available,jdbcType=CHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="findRoleAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+    </select>
+  
+   <select id="findRolePageCondition" resultMap="BaseResultMap" parameterType="com.mmss.utils.PageInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        limit #{from}, #{size}
+    </select>
+
+    <select id="findRolePageCount" resultType="java.lang.Integer" parameterType="com.mmss.utils.PageInfo">
+    select 
+    count(*) count
+    from sys_role
+  </select>
+  
+  <select id="findResourceIdListByRoleId" resultType="java.lang.Long" parameterType="java.lang.String">
+    SELECT
+        e.sys_permission_id AS id
+    FROM
+        sys_role r
+    LEFT JOIN sys_role_permission e ON r.id = e.sys_role_id
+    WHERE
+        r.id = #{id}
+  </select>
+  
+  <select id="findRoleResourceIdListByRoleId" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT
+        e.id AS id
+    FROM
+        sys_role r
+    LEFT JOIN sys_role_permission e ON r.id = e.sys_role_id
+    WHERE
+        r.id = #{id}
+  </select>
 </mapper>

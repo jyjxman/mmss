@@ -28,4 +28,13 @@ public interface SysPermissionMapper {
     int updateByPrimaryKeySelective(SysPermission record);
 
     int updateByPrimaryKey(SysPermission record);
+
+	List<SysPermission> findResourceAllByTypeAndPidNull(String resourceType);
+
+	List<SysPermission> findResourceAllByTypeAndPid(@Param("resourceType") String resourceType, @Param("parentid") Long parentid);
+
+	
+
+
+	
 }

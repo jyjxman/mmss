@@ -11,7 +11,16 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<context:component-scan base-package="com.mmss.controller" />
-	<mvc:annotation-driven />
+	 <!-- 启用CGliB -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	<mvc:annotation-driven >
+	<mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+	</mvc:annotation-driven>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
@@ -23,6 +32,8 @@
 	<mvc:resources location="/WEB-INF/fonts/" mapping="/fonts/**" />
 	<mvc:resources location="/WEB-INF/font/" mapping="/font/**" />
 	<mvc:resources location="/WEB-INF/images/" mapping="/images/**" />
+	<!-- 配置哪些是静态资源，缺省Servlet 直接返回 -->
+    <mvc:resources location="/static/" mapping="/static/**"/>
 	<!-- 定义文件上传解析器 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

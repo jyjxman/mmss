@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mmss.mapper.SysDeptMapper" >
   <resultMap id="BaseResultMap" type="com.mmss.pojo.SysDept" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="BIGINT" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="sortstring" property="sortstring" jdbcType="TINYINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, parentid, icon, state
+    id, name, parentid, icon, sortstring, code, createtime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysDeptExample" >
     select
@@ -83,15 +85,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from sys_dept
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_dept
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.mmss.pojo.SysDeptExample" >
     delete from sys_dept
@@ -101,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysDept" >
     insert into sys_dept (id, name, parentid, 
-      icon, state)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+      icon, sortstring, code, 
+      createtime)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, 
+      #{icon,jdbcType=VARCHAR}, #{sortstring,jdbcType=TINYINT}, #{code,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysDept" >
     insert into sys_dept
@@ -120,25 +124,37 @@
       <if test="icon != null" >
         icon,
       </if>
-      <if test="state != null" >
-        state,
+      <if test="sortstring != null" >
+        sortstring,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="createtime != null" >
+        createtime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null" >
-        #{parentid,jdbcType=VARCHAR},
+        #{parentid,jdbcType=BIGINT},
       </if>
       <if test="icon != null" >
         #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="state != null" >
-        #{state,jdbcType=INTEGER},
+      <if test="sortstring != null" >
+        #{sortstring,jdbcType=TINYINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -152,19 +168,25 @@
     update sys_dept
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.parentid != null" >
-        parentid = #{record.parentid,jdbcType=VARCHAR},
+        parentid = #{record.parentid,jdbcType=BIGINT},
       </if>
       <if test="record.icon != null" >
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
-      <if test="record.state != null" >
-        state = #{record.state,jdbcType=INTEGER},
+      <if test="record.sortstring != null" >
+        sortstring = #{record.sortstring,jdbcType=TINYINT},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -173,11 +195,13 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sys_dept
-    set id = #{record.id,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      parentid = #{record.parentid,jdbcType=VARCHAR},
+      parentid = #{record.parentid,jdbcType=BIGINT},
       icon = #{record.icon,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=INTEGER}
+      sortstring = #{record.sortstring,jdbcType=TINYINT},
+      code = #{record.code,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -189,23 +213,51 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null" >
-        parentid = #{parentid,jdbcType=VARCHAR},
+        parentid = #{parentid,jdbcType=BIGINT},
       </if>
       <if test="icon != null" >
         icon = #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="state != null" >
-        state = #{state,jdbcType=INTEGER},
+      <if test="sortstring != null" >
+        sortstring = #{sortstring,jdbcType=TINYINT},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysDept" >
     update sys_dept
     set name = #{name,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=BIGINT},
       icon = #{icon,jdbcType=VARCHAR},
-      state = #{state,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR}
+      sortstring = #{sortstring,jdbcType=TINYINT},
+      code = #{code,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  
+   <select id="findOrganizationAllByPidNull" resultMap="BaseResultMap">
+        select distinct
+        <include refid="Base_Column_List"/>
+        from sys_dept where parentid is null order by sortstring
+    </select>
+
+    <select id="findOrganizationAllByPid" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select distinct
+        <include refid="Base_Column_List"/>
+        from sys_dept where parentid = #{parentid} order by sortstring
+    </select>
+    
+    
+    <select id="findOrganizationAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept order by sortstring
+    </select>
 </mapper>
