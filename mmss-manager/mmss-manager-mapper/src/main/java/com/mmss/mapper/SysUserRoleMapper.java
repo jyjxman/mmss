@@ -32,4 +32,6 @@ public interface SysUserRoleMapper {
 	List<SysUserRole> findUserRoleByUserId(String id);
 
 	void deleteById(String id);
+
+	List<String> findRoleIdListByUserId(String userId);
 }

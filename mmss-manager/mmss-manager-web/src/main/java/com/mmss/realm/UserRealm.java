@@ -49,6 +49,10 @@ public class UserRealm extends AuthorizingRealm {
 		if (sysUser == null) {//
 			return null;
 		}
+		// 账号未启用
+        if (sysUser.getLocked().equals('1')) {
+            return null;
+        }
 		// 从数据库查询到密码
 		String password = sysUser.getPassword();
 

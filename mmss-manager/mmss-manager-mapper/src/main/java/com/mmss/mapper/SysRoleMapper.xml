@@ -217,4 +217,26 @@
     WHERE
         r.id = #{id}
   </select>
+  
+  <select id="findResourceIdListByRoleIdAndType" resultType="com.mmss.pojo.SysPermission"
+            parameterType="java.lang.String">
+            SELECT
+        s.id AS id,
+        s.NAME AS 'name',
+        s.url AS url,
+        s.icon AS icon,
+        s.parentid AS parentid,
+        s.sortstring AS sortstring,
+        s.available AS 'available',
+        s.type AS type,
+        s.parentids AS parentids,
+        s.percode AS percode
+    FROM
+        sys_role r
+    LEFT JOIN sys_role_permission e ON r.id = e.sys_role_id
+    LEFT JOIN sys_permission s ON e.sys_permission_id = s.id
+    WHERE
+     r.id = #{id}
+      AND s.type LIKE '%menu'
+  </select>
 </mapper>

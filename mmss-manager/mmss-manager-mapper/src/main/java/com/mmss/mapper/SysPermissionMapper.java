@@ -33,8 +33,7 @@ public interface SysPermissionMapper {
 
 	List<SysPermission> findResourceAllByTypeAndPid(@Param("resourceType") String resourceType, @Param("parentid") Long parentid);
 
-	
-
+	List<SysPermission> findResourceAll();
 
 	
 }

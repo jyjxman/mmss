@@ -13,7 +13,7 @@
             url : '${path }/resource/treeGrid',
             idField : 'id',
             treeField : 'name',
-            parentField : 'pid',
+            parentField : 'parentid',
             fit : true,
             fitColumns : false,
             border : false,
@@ -31,7 +31,7 @@
                 title : '资源路径',
                 width : 200
             }, {
-                field : 'seq',
+                field : 'sortstring',
                 title : '排序',
                 width : 40
             }, {
@@ -39,31 +39,38 @@
                 title : '图标',
                 width : 90
             }, {
-                field : 'resourcetype',
+                field : 'type',
                 title : '资源类型',
                 width : 80,
                 formatter : function(value, row, index) {
                     switch (value) {
-                    case 0:
-                        return '菜单';
-                    case 1:
-                        return '按钮';
+                    case 'menu':
+                        return '主菜单';
+                    case 'submenu':
+                        return '子菜单';
+                    case 'permission':
+                    	return '按钮';
                     }
                 }
             }, {
-                field : 'pid',
+                field : 'parentid',
                 title : '上级资源ID',
                 width : 150,
-                hidden : true
+                hidden:true
+            },{
+                field : 'parentids',
+                title : '菜单路径',
+                width : 150,
+               hidden:true
             }, {
-                field : 'status',
+                field : 'available',
                 title : '状态',
                 width : 40,
                 formatter : function(value, row, index) {
                     switch (value) {
-                    case 0:
+                    case '1':
                         return '正常';
-                    case 1:
+                    case '0':
                         return '停用';
                     }
                 }
@@ -73,10 +80,10 @@
                 width : 130,
                 formatter : function(value, row, index) {
                     var str = '';
-                        <shiro:hasPermission name="/resource/edit">
+                        <shiro:hasPermission name="resource:edit">
                             str += $.formatString('<a href="javascript:void(0)" class="resource-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'icon-edit\'" onclick="editFun(\'{0}\');" >编辑</a>', row.id);
                         </shiro:hasPermission>
-                        <shiro:hasPermission name="/resource/delete">
+                        <shiro:hasPermission name="resource:del">
                             str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
                             str += $.formatString('<a href="javascript:void(0)" class="resource-easyui-linkbutton-del" data-options="plain:true,iconCls:\'icon-del\'" onclick="deleteFun(\'{0}\');" >删除</a>', row.id);
                         </shiro:hasPermission>
@@ -97,7 +104,7 @@
         }
         var node = treeGrid.treegrid('getSelected');
         if (node) {
-            parent.$.modalDialog({
+            $.modalDialog({
                 title : '编辑',
                 width : 500,
                 height : 350,
@@ -105,8 +112,8 @@
                 buttons : [ {
                     text : '确定',
                     handler : function() {
-                        parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
-                        var f = parent.$.modalDialog.handler.find('#resourceEditForm');
+                       $.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
+                        var f = $.modalDialog.handler.find('#resourceEditForm');
                         f.submit();
                     }
                 } ]
@@ -120,16 +127,16 @@
         }
         var node = treeGrid.treegrid('getSelected');
         if (node) {
-            parent.$.messager.confirm('询问', '您是否要删除当前资源？删除当前资源会连同子资源一起删除!', function(b) {
+            $.messager.confirm('询问', '您是否要删除当前资源？删除当前资源会连同子资源一起删除!', function(b) {
                 if (b) {
                     progressLoad();
                     $.post('${pageContext.request.contextPath}/resource/delete', {
                         id : node.id
                     }, function(result) {
                         if (result.success) {
-                            parent.$.messager.alert('提示', result.msg, 'info');
+                           $.messager.alert('提示', result.msg, 'info');
                             treeGrid.treegrid('reload');
-                            parent.layout_west_tree.tree('reload');
+                            
                         }
                         progressClose();
                     }, 'JSON');
@@ -139,7 +146,7 @@
     }
 
     function addFun() {
-        parent.$.modalDialog({
+        $.modalDialog({
             title : '添加',
             width : 500,
             height : 350,
@@ -147,8 +154,8 @@
             buttons : [ {
                 text : '添加',
                 handler : function() {
-                    parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
-                    var f = parent.$.modalDialog.handler.find('#resourceAddForm');
+                    $.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
+                    var f = $.modalDialog.handler.find('#resourceAddForm');
                     f.submit();
                 }
             } ]
@@ -164,7 +171,7 @@
     </div>
 
     <div id="toolbar" style="display: none;">
-        <shiro:hasPermission name="/resource/add">
+        <shiro:hasPermission name="resource:add">
             <a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加</a>
         </shiro:hasPermission>
     </div>

@@ -121,3 +121,21 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+.icon-tasks{
+	background:url('icons/task.png') no-repeat center center;
+}
+.icon-download-alt{
+	background:url('icons/download.png') no-repeat center center;
+}
+.icon-user{
+	background:url('icons/user.png') no-repeat center center;
+}
+.icon-user-md{
+	background:url('icons/user_brown.png') no-repeat center center;
+}
+.icon-cog{
+	background:url('icons/cog.png') no-repeat center center;
+}
+.icon-truck{
+	background:url('icons/car.png') no-repeat center center;
+}

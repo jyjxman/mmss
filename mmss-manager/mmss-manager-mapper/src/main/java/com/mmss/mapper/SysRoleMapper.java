@@ -3,6 +3,7 @@ package com.mmss.mapper;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import com.mmss.pojo.SysPermission;
 import com.mmss.pojo.SysRole;
 import com.mmss.pojo.SysRoleExample;
 import com.mmss.utils.PageInfo;
@@ -39,5 +40,7 @@ public interface SysRoleMapper {
 	List<String> findResourceIdListByRoleId(String id);
 
 	List<String> findRoleResourceIdListByRoleId(String id);
+
+	List<SysPermission> findResourceIdListByRoleIdAndType(String id);
 
 }
