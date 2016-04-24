@@ -444,183 +444,73 @@ public class SysMaterialExample {
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceIsNull() {
-            addCriterion("unit_price is null");
+        public Criteria andMaterialDescIsNull() {
+            addCriterion("material_desc is null");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceIsNotNull() {
-            addCriterion("unit_price is not null");
+        public Criteria andMaterialDescIsNotNull() {
+            addCriterion("material_desc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceEqualTo(Float value) {
-            addCriterion("unit_price =", value, "unitPrice");
+        public Criteria andMaterialDescEqualTo(String value) {
+            addCriterion("material_desc =", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceNotEqualTo(Float value) {
-            addCriterion("unit_price <>", value, "unitPrice");
+        public Criteria andMaterialDescNotEqualTo(String value) {
+            addCriterion("material_desc <>", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceGreaterThan(Float value) {
-            addCriterion("unit_price >", value, "unitPrice");
+        public Criteria andMaterialDescGreaterThan(String value) {
+            addCriterion("material_desc >", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceGreaterThanOrEqualTo(Float value) {
-            addCriterion("unit_price >=", value, "unitPrice");
+        public Criteria andMaterialDescGreaterThanOrEqualTo(String value) {
+            addCriterion("material_desc >=", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceLessThan(Float value) {
-            addCriterion("unit_price <", value, "unitPrice");
+        public Criteria andMaterialDescLessThan(String value) {
+            addCriterion("material_desc <", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceLessThanOrEqualTo(Float value) {
-            addCriterion("unit_price <=", value, "unitPrice");
+        public Criteria andMaterialDescLessThanOrEqualTo(String value) {
+            addCriterion("material_desc <=", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceIn(List<Float> values) {
-            addCriterion("unit_price in", values, "unitPrice");
+        public Criteria andMaterialDescLike(String value) {
+            addCriterion("material_desc like", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceNotIn(List<Float> values) {
-            addCriterion("unit_price not in", values, "unitPrice");
+        public Criteria andMaterialDescNotLike(String value) {
+            addCriterion("material_desc not like", value, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceBetween(Float value1, Float value2) {
-            addCriterion("unit_price between", value1, value2, "unitPrice");
+        public Criteria andMaterialDescIn(List<String> values) {
+            addCriterion("material_desc in", values, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andUnitPriceNotBetween(Float value1, Float value2) {
-            addCriterion("unit_price not between", value1, value2, "unitPrice");
+        public Criteria andMaterialDescNotIn(List<String> values) {
+            addCriterion("material_desc not in", values, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMinStorageIsNull() {
-            addCriterion("min_storage is null");
+        public Criteria andMaterialDescBetween(String value1, String value2) {
+            addCriterion("material_desc between", value1, value2, "materialDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMinStorageIsNotNull() {
-            addCriterion("min_storage is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageEqualTo(Float value) {
-            addCriterion("min_storage =", value, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageNotEqualTo(Float value) {
-            addCriterion("min_storage <>", value, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageGreaterThan(Float value) {
-            addCriterion("min_storage >", value, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageGreaterThanOrEqualTo(Float value) {
-            addCriterion("min_storage >=", value, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageLessThan(Float value) {
-            addCriterion("min_storage <", value, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageLessThanOrEqualTo(Float value) {
-            addCriterion("min_storage <=", value, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageIn(List<Float> values) {
-            addCriterion("min_storage in", values, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageNotIn(List<Float> values) {
-            addCriterion("min_storage not in", values, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageBetween(Float value1, Float value2) {
-            addCriterion("min_storage between", value1, value2, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinStorageNotBetween(Float value1, Float value2) {
-            addCriterion("min_storage not between", value1, value2, "minStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageIsNull() {
-            addCriterion("max_storage is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageIsNotNull() {
-            addCriterion("max_storage is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageEqualTo(Float value) {
-            addCriterion("max_storage =", value, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageNotEqualTo(Float value) {
-            addCriterion("max_storage <>", value, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageGreaterThan(Float value) {
-            addCriterion("max_storage >", value, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageGreaterThanOrEqualTo(Float value) {
-            addCriterion("max_storage >=", value, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageLessThan(Float value) {
-            addCriterion("max_storage <", value, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageLessThanOrEqualTo(Float value) {
-            addCriterion("max_storage <=", value, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageIn(List<Float> values) {
-            addCriterion("max_storage in", values, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageNotIn(List<Float> values) {
-            addCriterion("max_storage not in", values, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageBetween(Float value1, Float value2) {
-            addCriterion("max_storage between", value1, value2, "maxStorage");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxStorageNotBetween(Float value1, Float value2) {
-            addCriterion("max_storage not between", value1, value2, "maxStorage");
+        public Criteria andMaterialDescNotBetween(String value1, String value2) {
+            addCriterion("material_desc not between", value1, value2, "materialDesc");
             return (Criteria) this;
         }
     }

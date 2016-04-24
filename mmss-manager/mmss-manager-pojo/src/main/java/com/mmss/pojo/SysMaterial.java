@@ -11,11 +11,7 @@ public class SysMaterial {
 
     private String measureUnit;
 
-    private Float unitPrice;
-
-    private Float minStorage;
-
-    private Float maxStorage;
+    private String materialDesc;
 
     public Long getId() {
         return id;
@@ -57,27 +53,11 @@ public class SysMaterial {
         this.measureUnit = measureUnit == null ? null : measureUnit.trim();
     }
 
-    public Float getUnitPrice() {
-        return unitPrice;
+    public String getMaterialDesc() {
+        return materialDesc;
     }
 
-    public void setUnitPrice(Float unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Float getMinStorage() {
-        return minStorage;
-    }
-
-    public void setMinStorage(Float minStorage) {
-        this.minStorage = minStorage;
-    }
-
-    public Float getMaxStorage() {
-        return maxStorage;
-    }
-
-    public void setMaxStorage(Float maxStorage) {
-        this.maxStorage = maxStorage;
+    public void setMaterialDesc(String materialDesc) {
+        this.materialDesc = materialDesc == null ? null : materialDesc.trim();
     }
 }

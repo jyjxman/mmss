@@ -364,73 +364,73 @@ public class SysRepositoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeIsNull() {
-            addCriterion("material_type is null");
+        public Criteria andRepositoryDescIsNull() {
+            addCriterion("repository_desc is null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeIsNotNull() {
-            addCriterion("material_type is not null");
+        public Criteria andRepositoryDescIsNotNull() {
+            addCriterion("repository_desc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeEqualTo(String value) {
-            addCriterion("material_type =", value, "materialType");
+        public Criteria andRepositoryDescEqualTo(String value) {
+            addCriterion("repository_desc =", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeNotEqualTo(String value) {
-            addCriterion("material_type <>", value, "materialType");
+        public Criteria andRepositoryDescNotEqualTo(String value) {
+            addCriterion("repository_desc <>", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeGreaterThan(String value) {
-            addCriterion("material_type >", value, "materialType");
+        public Criteria andRepositoryDescGreaterThan(String value) {
+            addCriterion("repository_desc >", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("material_type >=", value, "materialType");
+        public Criteria andRepositoryDescGreaterThanOrEqualTo(String value) {
+            addCriterion("repository_desc >=", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeLessThan(String value) {
-            addCriterion("material_type <", value, "materialType");
+        public Criteria andRepositoryDescLessThan(String value) {
+            addCriterion("repository_desc <", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeLessThanOrEqualTo(String value) {
-            addCriterion("material_type <=", value, "materialType");
+        public Criteria andRepositoryDescLessThanOrEqualTo(String value) {
+            addCriterion("repository_desc <=", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeLike(String value) {
-            addCriterion("material_type like", value, "materialType");
+        public Criteria andRepositoryDescLike(String value) {
+            addCriterion("repository_desc like", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeNotLike(String value) {
-            addCriterion("material_type not like", value, "materialType");
+        public Criteria andRepositoryDescNotLike(String value) {
+            addCriterion("repository_desc not like", value, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeIn(List<String> values) {
-            addCriterion("material_type in", values, "materialType");
+        public Criteria andRepositoryDescIn(List<String> values) {
+            addCriterion("repository_desc in", values, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeNotIn(List<String> values) {
-            addCriterion("material_type not in", values, "materialType");
+        public Criteria andRepositoryDescNotIn(List<String> values) {
+            addCriterion("repository_desc not in", values, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeBetween(String value1, String value2) {
-            addCriterion("material_type between", value1, value2, "materialType");
+        public Criteria andRepositoryDescBetween(String value1, String value2) {
+            addCriterion("repository_desc between", value1, value2, "repositoryDesc");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialTypeNotBetween(String value1, String value2) {
-            addCriterion("material_type not between", value1, value2, "materialType");
+        public Criteria andRepositoryDescNotBetween(String value1, String value2) {
+            addCriterion("repository_desc not between", value1, value2, "repositoryDesc");
             return (Criteria) this;
         }
     }

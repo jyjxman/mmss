@@ -7,9 +7,7 @@
     <result column="specifications" property="specifications" jdbcType="VARCHAR" />
     <result column="material_type" property="materialType" jdbcType="VARCHAR" />
     <result column="measure_unit" property="measureUnit" jdbcType="VARCHAR" />
-    <result column="unit_price" property="unitPrice" jdbcType="REAL" />
-    <result column="min_storage" property="minStorage" jdbcType="REAL" />
-    <result column="max_storage" property="maxStorage" jdbcType="REAL" />
+    <result column="material_desc" property="materialDesc" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, material_name, specifications, material_type, measure_unit, unit_price, min_storage, 
-    max_storage
+    id, material_name, specifications, material_type, measure_unit, material_desc
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysMaterialExample" >
     select
@@ -105,11 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysMaterial" >
     insert into sys_material (id, material_name, specifications, 
-      material_type, measure_unit, unit_price, 
-      min_storage, max_storage)
+      material_type, measure_unit, material_desc
+      )
     values (#{id,jdbcType=BIGINT}, #{materialName,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
-      #{materialType,jdbcType=VARCHAR}, #{measureUnit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=REAL}, 
-      #{minStorage,jdbcType=REAL}, #{maxStorage,jdbcType=REAL})
+      #{materialType,jdbcType=VARCHAR}, #{measureUnit,jdbcType=VARCHAR}, #{materialDesc,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysMaterial" >
     insert into sys_material
@@ -129,14 +126,8 @@
       <if test="measureUnit != null" >
         measure_unit,
       </if>
-      <if test="unitPrice != null" >
-        unit_price,
-      </if>
-      <if test="minStorage != null" >
-        min_storage,
-      </if>
-      <if test="maxStorage != null" >
-        max_storage,
+      <if test="materialDesc != null" >
+        material_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -155,14 +146,8 @@
       <if test="measureUnit != null" >
         #{measureUnit,jdbcType=VARCHAR},
       </if>
-      <if test="unitPrice != null" >
-        #{unitPrice,jdbcType=REAL},
-      </if>
-      <if test="minStorage != null" >
-        #{minStorage,jdbcType=REAL},
-      </if>
-      <if test="maxStorage != null" >
-        #{maxStorage,jdbcType=REAL},
+      <if test="materialDesc != null" >
+        #{materialDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -190,14 +175,8 @@
       <if test="record.measureUnit != null" >
         measure_unit = #{record.measureUnit,jdbcType=VARCHAR},
       </if>
-      <if test="record.unitPrice != null" >
-        unit_price = #{record.unitPrice,jdbcType=REAL},
-      </if>
-      <if test="record.minStorage != null" >
-        min_storage = #{record.minStorage,jdbcType=REAL},
-      </if>
-      <if test="record.maxStorage != null" >
-        max_storage = #{record.maxStorage,jdbcType=REAL},
+      <if test="record.materialDesc != null" >
+        material_desc = #{record.materialDesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -211,9 +190,7 @@
       specifications = #{record.specifications,jdbcType=VARCHAR},
       material_type = #{record.materialType,jdbcType=VARCHAR},
       measure_unit = #{record.measureUnit,jdbcType=VARCHAR},
-      unit_price = #{record.unitPrice,jdbcType=REAL},
-      min_storage = #{record.minStorage,jdbcType=REAL},
-      max_storage = #{record.maxStorage,jdbcType=REAL}
+      material_desc = #{record.materialDesc,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,14 +210,8 @@
       <if test="measureUnit != null" >
         measure_unit = #{measureUnit,jdbcType=VARCHAR},
       </if>
-      <if test="unitPrice != null" >
-        unit_price = #{unitPrice,jdbcType=REAL},
-      </if>
-      <if test="minStorage != null" >
-        min_storage = #{minStorage,jdbcType=REAL},
-      </if>
-      <if test="maxStorage != null" >
-        max_storage = #{maxStorage,jdbcType=REAL},
+      <if test="materialDesc != null" >
+        material_desc = #{materialDesc,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -251,9 +222,7 @@
       specifications = #{specifications,jdbcType=VARCHAR},
       material_type = #{materialType,jdbcType=VARCHAR},
       measure_unit = #{measureUnit,jdbcType=VARCHAR},
-      unit_price = #{unitPrice,jdbcType=REAL},
-      min_storage = #{minStorage,jdbcType=REAL},
-      max_storage = #{maxStorage,jdbcType=REAL}
+      material_desc = #{materialDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -9,7 +9,7 @@ public class SysRepository {
 
     private Float repositoryArea;
 
-    private String materialType;
+    private String repositoryDesc;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class SysRepository {
         this.repositoryArea = repositoryArea;
     }
 
-    public String getMaterialType() {
-        return materialType;
+    public String getRepositoryDesc() {
+        return repositoryDesc;
     }
 
-    public void setMaterialType(String materialType) {
-        this.materialType = materialType == null ? null : materialType.trim();
+    public void setRepositoryDesc(String repositoryDesc) {
+        this.repositoryDesc = repositoryDesc == null ? null : repositoryDesc.trim();
     }
 }

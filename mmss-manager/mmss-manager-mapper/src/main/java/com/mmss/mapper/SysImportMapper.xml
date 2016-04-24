@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mmss.mapper.SysInoutRecordMapper" >
-  <resultMap id="BaseResultMap" type="com.mmss.pojo.SysInoutRecord" >
+<mapper namespace="com.mmss.mapper.SysImportMapper" >
+  <resultMap id="BaseResultMap" type="com.mmss.pojo.SysImport" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="material_id" property="materialId" jdbcType="BIGINT" />
-    <result column="repertory_id" property="repertoryId" jdbcType="BIGINT" />
-    <result column="batch_number" property="batchNumber" jdbcType="BIGINT" />
-    <result column="storage" property="storage" jdbcType="REAL" />
-    <result column="principal" property="principal" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
+    <result column="impoPrice" property="impoprice" jdbcType="REAL" />
+    <result column="priceUnit" property="priceunit" jdbcType="VARCHAR" />
+    <result column="impoDate" property="impodate" jdbcType="TIMESTAMP" />
+    <result column="impoNum" property="imponum" jdbcType="INTEGER" />
+    <result column="numUnit" property="numunit" jdbcType="VARCHAR" />
+    <result column="impoDesc" property="impodesc" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,15 +71,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, material_id, repertory_id, batch_number, storage, principal, time
+    id, material_id, repository_id, impoPrice, priceUnit, impoDate, impoNum, numUnit, 
+    impoDesc
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysInoutRecordExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysImportExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_inout_record
+    from sys_import
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,29 +91,31 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from sys_inout_record
+    from sys_import
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_inout_record
+    delete from sys_import
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mmss.pojo.SysInoutRecordExample" >
-    delete from sys_inout_record
+  <delete id="deleteByExample" parameterType="com.mmss.pojo.SysImportExample" >
+    delete from sys_import
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.mmss.pojo.SysInoutRecord" >
-    insert into sys_inout_record (id, material_id, repertory_id, 
-      batch_number, storage, principal, 
-      time)
-    values (#{id,jdbcType=BIGINT}, #{materialId,jdbcType=BIGINT}, #{repertoryId,jdbcType=BIGINT}, 
-      #{batchNumber,jdbcType=BIGINT}, #{storage,jdbcType=REAL}, #{principal,jdbcType=VARCHAR}, 
-      #{time,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.mmss.pojo.SysImport" >
+    insert into sys_import (id, material_id, repository_id, 
+      impoPrice, priceUnit, impoDate, 
+      impoNum, numUnit, impoDesc
+      )
+    values (#{id,jdbcType=BIGINT}, #{materialId,jdbcType=BIGINT}, #{repositoryId,jdbcType=BIGINT}, 
+      #{impoprice,jdbcType=REAL}, #{priceunit,jdbcType=VARCHAR}, #{impodate,jdbcType=TIMESTAMP}, 
+      #{imponum,jdbcType=INTEGER}, #{numunit,jdbcType=VARCHAR}, #{impodesc,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.mmss.pojo.SysInoutRecord" >
-    insert into sys_inout_record
+  <insert id="insertSelective" parameterType="com.mmss.pojo.SysImport" >
+    insert into sys_import
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -118,20 +123,26 @@
       <if test="materialId != null" >
         material_id,
       </if>
-      <if test="repertoryId != null" >
-        repertory_id,
+      <if test="repositoryId != null" >
+        repository_id,
       </if>
-      <if test="batchNumber != null" >
-        batch_number,
+      <if test="impoprice != null" >
+        impoPrice,
       </if>
-      <if test="storage != null" >
-        storage,
+      <if test="priceunit != null" >
+        priceUnit,
       </if>
-      <if test="principal != null" >
-        principal,
+      <if test="impodate != null" >
+        impoDate,
       </if>
-      <if test="time != null" >
-        time,
+      <if test="imponum != null" >
+        impoNum,
+      </if>
+      <if test="numunit != null" >
+        numUnit,
+      </if>
+      <if test="impodesc != null" >
+        impoDesc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -141,31 +152,37 @@
       <if test="materialId != null" >
         #{materialId,jdbcType=BIGINT},
       </if>
-      <if test="repertoryId != null" >
-        #{repertoryId,jdbcType=BIGINT},
+      <if test="repositoryId != null" >
+        #{repositoryId,jdbcType=BIGINT},
       </if>
-      <if test="batchNumber != null" >
-        #{batchNumber,jdbcType=BIGINT},
+      <if test="impoprice != null" >
+        #{impoprice,jdbcType=REAL},
       </if>
-      <if test="storage != null" >
-        #{storage,jdbcType=REAL},
+      <if test="priceunit != null" >
+        #{priceunit,jdbcType=VARCHAR},
       </if>
-      <if test="principal != null" >
-        #{principal,jdbcType=VARCHAR},
+      <if test="impodate != null" >
+        #{impodate,jdbcType=TIMESTAMP},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=TIMESTAMP},
+      <if test="imponum != null" >
+        #{imponum,jdbcType=INTEGER},
+      </if>
+      <if test="numunit != null" >
+        #{numunit,jdbcType=VARCHAR},
+      </if>
+      <if test="impodesc != null" >
+        #{impodesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.mmss.pojo.SysInoutRecordExample" resultType="java.lang.Integer" >
-    select count(*) from sys_inout_record
+  <select id="countByExample" parameterType="com.mmss.pojo.SysImportExample" resultType="java.lang.Integer" >
+    select count(*) from sys_import
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update sys_inout_record
+    update sys_import
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
@@ -173,20 +190,26 @@
       <if test="record.materialId != null" >
         material_id = #{record.materialId,jdbcType=BIGINT},
       </if>
-      <if test="record.repertoryId != null" >
-        repertory_id = #{record.repertoryId,jdbcType=BIGINT},
+      <if test="record.repositoryId != null" >
+        repository_id = #{record.repositoryId,jdbcType=BIGINT},
       </if>
-      <if test="record.batchNumber != null" >
-        batch_number = #{record.batchNumber,jdbcType=BIGINT},
+      <if test="record.impoprice != null" >
+        impoPrice = #{record.impoprice,jdbcType=REAL},
       </if>
-      <if test="record.storage != null" >
-        storage = #{record.storage,jdbcType=REAL},
+      <if test="record.priceunit != null" >
+        priceUnit = #{record.priceunit,jdbcType=VARCHAR},
       </if>
-      <if test="record.principal != null" >
-        principal = #{record.principal,jdbcType=VARCHAR},
+      <if test="record.impodate != null" >
+        impoDate = #{record.impodate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.time != null" >
-        time = #{record.time,jdbcType=TIMESTAMP},
+      <if test="record.imponum != null" >
+        impoNum = #{record.imponum,jdbcType=INTEGER},
+      </if>
+      <if test="record.numunit != null" >
+        numUnit = #{record.numunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.impodesc != null" >
+        impoDesc = #{record.impodesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -194,50 +217,60 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update sys_inout_record
+    update sys_import
     set id = #{record.id,jdbcType=BIGINT},
       material_id = #{record.materialId,jdbcType=BIGINT},
-      repertory_id = #{record.repertoryId,jdbcType=BIGINT},
-      batch_number = #{record.batchNumber,jdbcType=BIGINT},
-      storage = #{record.storage,jdbcType=REAL},
-      principal = #{record.principal,jdbcType=VARCHAR},
-      time = #{record.time,jdbcType=TIMESTAMP}
+      repository_id = #{record.repositoryId,jdbcType=BIGINT},
+      impoPrice = #{record.impoprice,jdbcType=REAL},
+      priceUnit = #{record.priceunit,jdbcType=VARCHAR},
+      impoDate = #{record.impodate,jdbcType=TIMESTAMP},
+      impoNum = #{record.imponum,jdbcType=INTEGER},
+      numUnit = #{record.numunit,jdbcType=VARCHAR},
+      impoDesc = #{record.impodesc,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmss.pojo.SysInoutRecord" >
-    update sys_inout_record
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmss.pojo.SysImport" >
+    update sys_import
     <set >
       <if test="materialId != null" >
         material_id = #{materialId,jdbcType=BIGINT},
       </if>
-      <if test="repertoryId != null" >
-        repertory_id = #{repertoryId,jdbcType=BIGINT},
+      <if test="repositoryId != null" >
+        repository_id = #{repositoryId,jdbcType=BIGINT},
       </if>
-      <if test="batchNumber != null" >
-        batch_number = #{batchNumber,jdbcType=BIGINT},
+      <if test="impoprice != null" >
+        impoPrice = #{impoprice,jdbcType=REAL},
       </if>
-      <if test="storage != null" >
-        storage = #{storage,jdbcType=REAL},
+      <if test="priceunit != null" >
+        priceUnit = #{priceunit,jdbcType=VARCHAR},
       </if>
-      <if test="principal != null" >
-        principal = #{principal,jdbcType=VARCHAR},
+      <if test="impodate != null" >
+        impoDate = #{impodate,jdbcType=TIMESTAMP},
       </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=TIMESTAMP},
+      <if test="imponum != null" >
+        impoNum = #{imponum,jdbcType=INTEGER},
+      </if>
+      <if test="numunit != null" >
+        numUnit = #{numunit,jdbcType=VARCHAR},
+      </if>
+      <if test="impodesc != null" >
+        impoDesc = #{impodesc,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysInoutRecord" >
-    update sys_inout_record
+  <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysImport" >
+    update sys_import
     set material_id = #{materialId,jdbcType=BIGINT},
-      repertory_id = #{repertoryId,jdbcType=BIGINT},
-      batch_number = #{batchNumber,jdbcType=BIGINT},
-      storage = #{storage,jdbcType=REAL},
-      principal = #{principal,jdbcType=VARCHAR},
-      time = #{time,jdbcType=TIMESTAMP}
+      repository_id = #{repositoryId,jdbcType=BIGINT},
+      impoPrice = #{impoprice,jdbcType=REAL},
+      priceUnit = #{priceunit,jdbcType=VARCHAR},
+      impoDate = #{impodate,jdbcType=TIMESTAMP},
+      impoNum = #{imponum,jdbcType=INTEGER},
+      numUnit = #{numunit,jdbcType=VARCHAR},
+      impoDesc = #{impodesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

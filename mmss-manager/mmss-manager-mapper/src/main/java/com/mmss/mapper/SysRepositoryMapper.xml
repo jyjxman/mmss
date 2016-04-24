@@ -6,7 +6,7 @@
     <result column="repository_name" property="repositoryName" jdbcType="VARCHAR" />
     <result column="repository_address" property="repositoryAddress" jdbcType="VARCHAR" />
     <result column="repository_area" property="repositoryArea" jdbcType="REAL" />
-    <result column="material_type" property="materialType" jdbcType="VARCHAR" />
+    <result column="repository_desc" property="repositoryDesc" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, repository_name, repository_address, repository_area, material_type
+    id, repository_name, repository_address, repository_area, repository_desc
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysRepositoryExample" >
     select
@@ -101,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysRepository" >
     insert into sys_repository (id, repository_name, repository_address, 
-      repository_area, material_type)
+      repository_area, repository_desc)
     values (#{id,jdbcType=BIGINT}, #{repositoryName,jdbcType=VARCHAR}, #{repositoryAddress,jdbcType=VARCHAR}, 
-      #{repositoryArea,jdbcType=REAL}, #{materialType,jdbcType=VARCHAR})
+      #{repositoryArea,jdbcType=REAL}, #{repositoryDesc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysRepository" >
     insert into sys_repository
@@ -120,8 +120,8 @@
       <if test="repositoryArea != null" >
         repository_area,
       </if>
-      <if test="materialType != null" >
-        material_type,
+      <if test="repositoryDesc != null" >
+        repository_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -137,8 +137,8 @@
       <if test="repositoryArea != null" >
         #{repositoryArea,jdbcType=REAL},
       </if>
-      <if test="materialType != null" >
-        #{materialType,jdbcType=VARCHAR},
+      <if test="repositoryDesc != null" >
+        #{repositoryDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -163,8 +163,8 @@
       <if test="record.repositoryArea != null" >
         repository_area = #{record.repositoryArea,jdbcType=REAL},
       </if>
-      <if test="record.materialType != null" >
-        material_type = #{record.materialType,jdbcType=VARCHAR},
+      <if test="record.repositoryDesc != null" >
+        repository_desc = #{record.repositoryDesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -177,7 +177,7 @@
       repository_name = #{record.repositoryName,jdbcType=VARCHAR},
       repository_address = #{record.repositoryAddress,jdbcType=VARCHAR},
       repository_area = #{record.repositoryArea,jdbcType=REAL},
-      material_type = #{record.materialType,jdbcType=VARCHAR}
+      repository_desc = #{record.repositoryDesc,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -194,8 +194,8 @@
       <if test="repositoryArea != null" >
         repository_area = #{repositoryArea,jdbcType=REAL},
       </if>
-      <if test="materialType != null" >
-        material_type = #{materialType,jdbcType=VARCHAR},
+      <if test="repositoryDesc != null" >
+        repository_desc = #{repositoryDesc,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -205,7 +205,7 @@
     set repository_name = #{repositoryName,jdbcType=VARCHAR},
       repository_address = #{repositoryAddress,jdbcType=VARCHAR},
       repository_area = #{repositoryArea,jdbcType=REAL},
-      material_type = #{materialType,jdbcType=VARCHAR}
+      repository_desc = #{repositoryDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -2,6 +2,10 @@ package com.mmss.service.impl.user;
 
 import java.util.List;
 
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.impl.persistence.entity.GroupEntity;
+import org.activiti.engine.impl.persistence.entity.UserEntity;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +36,8 @@ public class UserServiceImpl implements UserService {
 	private SysUserMapper sysUserMapper;
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
-
+    @Autowired
+    private ProcessEngine processEngine;
 	@Autowired
 	private SysPermissionMapperCustom sysPermissionMapperCustom;
 
@@ -100,6 +105,38 @@ public class UserServiceImpl implements UserService {
 		return sysUserMapper.findUserByLoginName(username);
 	}
 	@Override
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void addUser(UserVo userVo) {
 		// TODO Auto-generated method stub
 		 SysUser user = new SysUser();
@@ -123,6 +160,29 @@ public class UserServiceImpl implements UserService {
 	            sysUserRoleMapper.insert(userRole);
 	        }
 		
+	        
+	       /* ===整合activiti*/
+	        
+	      IdentityService identityService = processEngine.getIdentityService();
+	      UserEntity userEntity = new UserEntity();
+	      userEntity.setId(user.getId());
+	      userEntity.setFirstName(user.getUsername());
+	      userEntity.setLastName("");
+	      identityService.saveUser(userEntity);
+	      
+	      
+	      String groupid = roles[0];
+	      if(identityService.createGroupQuery().groupId(groupid).singleResult()==null){
+				//添加新组
+				GroupEntity groupEntity = new GroupEntity();
+				groupEntity.setId(groupid);
+				groupEntity.setName("");
+				identityService.saveGroup(groupEntity);
+			}
+	      
+	      identityService.createMembership(user.getId(), groupid);
+	      
+	      
 	}
 
 	@Override
