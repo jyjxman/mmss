@@ -44,6 +44,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/manager", method=RequestMethod.GET)
 	public String manager(Model model) {
 		model.addAttribute("sessionInfo", getCurrentUser());
+		System.out.println(getCurrentUser());
 		return "admin/user";
 	}
 

@@ -6,6 +6,7 @@
     <result column="carid" property="carid" jdbcType="BIGINT" />
     <result column="fueltype" property="fueltype" jdbcType="VARCHAR" />
     <result column="unitprice" property="unitprice" jdbcType="REAL" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, carid, fueltype, unitprice
+    id, carid, fueltype, unitprice, unit
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysCarOilExample" >
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysCarOil" >
     insert into sys_car_oil (id, carid, fueltype, 
-      unitprice)
+      unitprice, unit)
     values (#{id,jdbcType=BIGINT}, #{carid,jdbcType=BIGINT}, #{fueltype,jdbcType=VARCHAR}, 
-      #{unitprice,jdbcType=REAL})
+      #{unitprice,jdbcType=REAL}, #{unit,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysCarOil" >
     insert into sys_car_oil
@@ -119,6 +120,9 @@
       <if test="unitprice != null" >
         unitprice,
       </if>
+      <if test="unit != null" >
+        unit,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -132,6 +136,9 @@
       </if>
       <if test="unitprice != null" >
         #{unitprice,jdbcType=REAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.unitprice != null" >
         unitprice = #{record.unitprice,jdbcType=REAL},
       </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=BIGINT},
       carid = #{record.carid,jdbcType=BIGINT},
       fueltype = #{record.fueltype,jdbcType=VARCHAR},
-      unitprice = #{record.unitprice,jdbcType=REAL}
+      unitprice = #{record.unitprice,jdbcType=REAL},
+      unit = #{record.unit,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="unitprice != null" >
         unitprice = #{unitprice,jdbcType=REAL},
       </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -190,7 +204,8 @@
     update sys_car_oil
     set carid = #{carid,jdbcType=BIGINT},
       fueltype = #{fueltype,jdbcType=VARCHAR},
-      unitprice = #{unitprice,jdbcType=REAL}
+      unitprice = #{unitprice,jdbcType=REAL},
+      unit = #{unit,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,9 +1,19 @@
 package com.mmss.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysImport {
-    private Long id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class SysImport implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5643490113349017883L;
+
+	private Long id;
 
     private Long materialId;
 
@@ -60,7 +70,8 @@ public class SysImport {
     public void setPriceunit(String priceunit) {
         this.priceunit = priceunit == null ? null : priceunit.trim();
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getImpodate() {
         return impodate;
     }

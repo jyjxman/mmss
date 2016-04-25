@@ -63,7 +63,7 @@
             </tr>
             <tr>
                 <td>菜单图标</td>
-                <td ><input  name="icon" value="${resource.icon}"/></td>
+                <td ><input name="icon" value="${resource.icon}"/></td>
                 <td>状态</td>
                 <td ><select id="status" name="status" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
                             <option value="1">正常</option>
@@ -75,7 +75,10 @@
                 <td colspan="3"><select id="pid" name="parentid" style="width: 200px; height: 29px;"></select>
                 <a class="easyui-linkbutton" href="javascript:void(0)" onclick="$('#pid').combotree('clear');" >清空</a></td>
             </tr>
-           
+            <tr>
+           <td>权限类别</td>
+                <td><input name="percode" value="${resource.percode}" type="text" placeholder="请输入权限类别" ></td>
+             </tr>  
         </table>
     </form>
 </div>

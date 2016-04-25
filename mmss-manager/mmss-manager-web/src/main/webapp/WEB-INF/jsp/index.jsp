@@ -25,7 +25,7 @@
 		</div>
 		<ul class="nav navbar-nav navbar-right" style="margin-right: 25px;">
 			<li><a href="#"><span class="badge"
-					style="background: #AC2925;">23</span></a></li>
+					style="background: #AC2925;">欢迎,${activeUser.username }</span></a></li>
 			<li><a href="${ctx }/loginout.do"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
 		</ul>
 		</nav>

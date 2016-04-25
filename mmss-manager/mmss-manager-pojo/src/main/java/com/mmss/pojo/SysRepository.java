@@ -1,7 +1,14 @@
 package com.mmss.pojo;
 
-public class SysRepository {
-    private Long id;
+import java.io.Serializable;
+
+public class SysRepository implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6095195944071876039L;
+
+	private Long id;
 
     private String repositoryName;
 

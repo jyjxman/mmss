@@ -110,4 +110,12 @@ public class SysUser implements Serializable{
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+	@Override
+	public String toString() {
+		return "SysUser [id=" + id + ", usercode=" + usercode + ", username=" + username + ", password=" + password
+				+ ", salt=" + salt + ", deptId=" + deptId + ", locked=" + locked + ", adreess=" + adreess + ", phone="
+				+ phone + ", createtime=" + createtime + "]";
+	}
+    
 }

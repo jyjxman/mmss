@@ -191,7 +191,7 @@ public class ResourceServiceImpl implements ResourceService {
             treeOne.setIconCls(resourceOne.getIcon());
             treeOne.setAttributes(resourceOne.getUrl());
 
-            List<SysPermission> resourceSon = resourceMapper.findResourceAllByTypeAndPid(Config.RESOURCE_MENU, resourceOne.getId());
+            List<SysPermission> resourceSon = resourceMapper.findResourceAllByTypeAndPid(Config.RESOURCE_SUBMENU, resourceOne.getId());
 
             if (resourceSon == null) {
                 treeOne.setState("closed");

@@ -261,6 +261,9 @@
       <if test="sortstring != null" >
         sortstring = #{sortstring,jdbcType=VARCHAR},
       </if>
+       <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
       <if test="available != null" >
         available = #{available,jdbcType=CHAR},
       </if>

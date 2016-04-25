@@ -9,6 +9,8 @@ public class SysCarOil {
 
     private Float unitprice;
 
+    private String unit;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class SysCarOil {
 
     public void setUnitprice(Float unitprice) {
         this.unitprice = unitprice;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
     }
 }

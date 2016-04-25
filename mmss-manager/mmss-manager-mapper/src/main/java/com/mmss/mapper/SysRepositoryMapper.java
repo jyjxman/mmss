@@ -3,6 +3,8 @@ package com.mmss.mapper;
 import com.mmss.pojo.SysRepository;
 import com.mmss.pojo.SysRepositoryExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysRepositoryMapper {
@@ -27,4 +29,6 @@ public interface SysRepositoryMapper {
     int updateByPrimaryKeySelective(SysRepository record);
 
     int updateByPrimaryKey(SysRepository record);
+
+	List<SysRepository> queryRepositoryByName(Map<String, Object> map);
 }

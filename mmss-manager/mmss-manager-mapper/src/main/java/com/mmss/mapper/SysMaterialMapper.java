@@ -3,6 +3,8 @@ package com.mmss.mapper;
 import com.mmss.pojo.SysMaterial;
 import com.mmss.pojo.SysMaterialExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysMaterialMapper {
@@ -27,4 +29,6 @@ public interface SysMaterialMapper {
     int updateByPrimaryKeySelective(SysMaterial record);
 
     int updateByPrimaryKey(SysMaterial record);
+
+	List<SysMaterial> queryMaterialByName(Map<String, Object> map);
 }

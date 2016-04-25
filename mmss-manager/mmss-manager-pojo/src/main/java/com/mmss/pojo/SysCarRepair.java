@@ -13,6 +13,8 @@ public class SysCarRepair {
 
     private Float price;
 
+    private String unit;
+
     private String reason;
 
     public Long getId() {
@@ -53,6 +55,14 @@ public class SysCarRepair {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
     }
 
     public String getReason() {

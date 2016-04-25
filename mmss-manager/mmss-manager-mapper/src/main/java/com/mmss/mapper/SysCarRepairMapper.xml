@@ -7,6 +7,7 @@
     <result column="time" property="time" jdbcType="TIMESTAMP" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="REAL" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, carid, time, address, price, reason
+    id, carid, time, address, price, unit, reason
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysCarRepairExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysCarRepair" >
     insert into sys_car_repair (id, carid, time, 
-      address, price, reason
-      )
+      address, price, unit, 
+      reason)
     values (#{id,jdbcType=BIGINT}, #{carid,jdbcType=BIGINT}, #{time,jdbcType=TIMESTAMP}, 
-      #{address,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{reason,jdbcType=VARCHAR}
-      )
+      #{address,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{unit,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysCarRepair" >
     insert into sys_car_repair
@@ -125,6 +126,9 @@
       </if>
       <if test="price != null" >
         price,
+      </if>
+      <if test="unit != null" >
+        unit,
       </if>
       <if test="reason != null" >
         reason,
@@ -145,6 +149,9 @@
       </if>
       <if test="price != null" >
         #{price,jdbcType=REAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
       </if>
       <if test="reason != null" >
         #{reason,jdbcType=VARCHAR},
@@ -175,6 +182,9 @@
       <if test="record.price != null" >
         price = #{record.price,jdbcType=REAL},
       </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
       <if test="record.reason != null" >
         reason = #{record.reason,jdbcType=VARCHAR},
       </if>
@@ -190,6 +200,7 @@
       time = #{record.time,jdbcType=TIMESTAMP},
       address = #{record.address,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=REAL},
+      unit = #{record.unit,jdbcType=VARCHAR},
       reason = #{record.reason,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,6 +221,9 @@
       <if test="price != null" >
         price = #{price,jdbcType=REAL},
       </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
       <if test="reason != null" >
         reason = #{reason,jdbcType=VARCHAR},
       </if>
@@ -222,6 +236,7 @@
       time = #{time,jdbcType=TIMESTAMP},
       address = #{address,jdbcType=VARCHAR},
       price = #{price,jdbcType=REAL},
+      unit = #{unit,jdbcType=VARCHAR},
       reason = #{reason,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>

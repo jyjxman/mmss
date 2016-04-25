@@ -62,6 +62,11 @@
                 title : '菜单路径',
                 width : 150,
                hidden:true
+            },{
+                field : 'percode',
+                title : '权限类别',
+                width : 150,
+               hidden:true
             }, {
                 field : 'available',
                 title : '状态',
