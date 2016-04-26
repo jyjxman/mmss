@@ -1,9 +1,19 @@
 package com.mmss.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysCarAccident {
-    private Long id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class SysCarAccident implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7313917432682737254L;
+
+	private Long id;
 
     private Long carid;
 
@@ -32,7 +42,8 @@ public class SysCarAccident {
     public void setCarid(Long carid) {
         this.carid = carid;
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getTime() {
         return time;
     }

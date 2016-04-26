@@ -2,7 +2,11 @@ package com.mmss.mapper;
 
 import com.mmss.pojo.SysCarRepair;
 import com.mmss.pojo.SysCarRepairExample;
+import com.mmss.vo.CarRepairVo;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysCarRepairMapper {
@@ -27,4 +31,6 @@ public interface SysCarRepairMapper {
     int updateByPrimaryKeySelective(SysCarRepair record);
 
     int updateByPrimaryKey(SysCarRepair record);
+
+	List<CarRepairVo> queryCarRepairByCodition(Map<String, Object> map);
 }

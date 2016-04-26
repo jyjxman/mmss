@@ -1,7 +1,19 @@
 package com.mmss.pojo;
 
-public class SysStock {
-    private Long id;
+import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class SysStock implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3710118348006885546L;
+
+	private Long id;
 
     private Long materialId;
 
@@ -16,6 +28,8 @@ public class SysStock {
     private String priceunit;
 
     private String stockdesc;
+
+    private Date updatdate;
 
     public Long getId() {
         return id;
@@ -79,5 +93,14 @@ public class SysStock {
 
     public void setStockdesc(String stockdesc) {
         this.stockdesc = stockdesc == null ? null : stockdesc.trim();
+    }
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public Date getUpdatdate() {
+        return updatdate;
+    }
+
+    public void setUpdatdate(Date updatdate) {
+        this.updatdate = updatdate;
     }
 }

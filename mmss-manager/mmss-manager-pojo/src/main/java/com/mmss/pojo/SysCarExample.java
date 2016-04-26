@@ -165,6 +165,76 @@ public class SysCarExample {
             return (Criteria) this;
         }
 
+        public Criteria andCarnumIsNull() {
+            addCriterion("carnum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumIsNotNull() {
+            addCriterion("carnum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumEqualTo(String value) {
+            addCriterion("carnum =", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumNotEqualTo(String value) {
+            addCriterion("carnum <>", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumGreaterThan(String value) {
+            addCriterion("carnum >", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumGreaterThanOrEqualTo(String value) {
+            addCriterion("carnum >=", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumLessThan(String value) {
+            addCriterion("carnum <", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumLessThanOrEqualTo(String value) {
+            addCriterion("carnum <=", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumLike(String value) {
+            addCriterion("carnum like", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumNotLike(String value) {
+            addCriterion("carnum not like", value, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumIn(List<String> values) {
+            addCriterion("carnum in", values, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumNotIn(List<String> values) {
+            addCriterion("carnum not in", values, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumBetween(String value1, String value2) {
+            addCriterion("carnum between", value1, value2, "carnum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCarnumNotBetween(String value1, String value2) {
+            addCriterion("carnum not between", value1, value2, "carnum");
+            return (Criteria) this;
+        }
+
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -435,73 +505,73 @@ public class SysCarExample {
             return (Criteria) this;
         }
 
-        public Criteria andCarnumIsNull() {
-            addCriterion("carnum is null");
+        public Criteria andUnitIsNull() {
+            addCriterion("unit is null");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumIsNotNull() {
-            addCriterion("carnum is not null");
+        public Criteria andUnitIsNotNull() {
+            addCriterion("unit is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumEqualTo(String value) {
-            addCriterion("carnum =", value, "carnum");
+        public Criteria andUnitEqualTo(String value) {
+            addCriterion("unit =", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumNotEqualTo(String value) {
-            addCriterion("carnum <>", value, "carnum");
+        public Criteria andUnitNotEqualTo(String value) {
+            addCriterion("unit <>", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumGreaterThan(String value) {
-            addCriterion("carnum >", value, "carnum");
+        public Criteria andUnitGreaterThan(String value) {
+            addCriterion("unit >", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumGreaterThanOrEqualTo(String value) {
-            addCriterion("carnum >=", value, "carnum");
+        public Criteria andUnitGreaterThanOrEqualTo(String value) {
+            addCriterion("unit >=", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumLessThan(String value) {
-            addCriterion("carnum <", value, "carnum");
+        public Criteria andUnitLessThan(String value) {
+            addCriterion("unit <", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumLessThanOrEqualTo(String value) {
-            addCriterion("carnum <=", value, "carnum");
+        public Criteria andUnitLessThanOrEqualTo(String value) {
+            addCriterion("unit <=", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumLike(String value) {
-            addCriterion("carnum like", value, "carnum");
+        public Criteria andUnitLike(String value) {
+            addCriterion("unit like", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumNotLike(String value) {
-            addCriterion("carnum not like", value, "carnum");
+        public Criteria andUnitNotLike(String value) {
+            addCriterion("unit not like", value, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumIn(List<String> values) {
-            addCriterion("carnum in", values, "carnum");
+        public Criteria andUnitIn(List<String> values) {
+            addCriterion("unit in", values, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumNotIn(List<String> values) {
-            addCriterion("carnum not in", values, "carnum");
+        public Criteria andUnitNotIn(List<String> values) {
+            addCriterion("unit not in", values, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumBetween(String value1, String value2) {
-            addCriterion("carnum between", value1, value2, "carnum");
+        public Criteria andUnitBetween(String value1, String value2) {
+            addCriterion("unit between", value1, value2, "unit");
             return (Criteria) this;
         }
 
-        public Criteria andCarnumNotBetween(String value1, String value2) {
-            addCriterion("carnum not between", value1, value2, "carnum");
+        public Criteria andUnitNotBetween(String value1, String value2) {
+            addCriterion("unit not between", value1, value2, "unit");
             return (Criteria) this;
         }
 
@@ -572,76 +642,6 @@ public class SysCarExample {
 
         public Criteria andStatusNotBetween(String value1, String value2) {
             addCriterion("status not between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromIsNull() {
-            addCriterion("carfrom is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromIsNotNull() {
-            addCriterion("carfrom is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromEqualTo(String value) {
-            addCriterion("carfrom =", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromNotEqualTo(String value) {
-            addCriterion("carfrom <>", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromGreaterThan(String value) {
-            addCriterion("carfrom >", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromGreaterThanOrEqualTo(String value) {
-            addCriterion("carfrom >=", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromLessThan(String value) {
-            addCriterion("carfrom <", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromLessThanOrEqualTo(String value) {
-            addCriterion("carfrom <=", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromLike(String value) {
-            addCriterion("carfrom like", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromNotLike(String value) {
-            addCriterion("carfrom not like", value, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromIn(List<String> values) {
-            addCriterion("carfrom in", values, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromNotIn(List<String> values) {
-            addCriterion("carfrom not in", values, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromBetween(String value1, String value2) {
-            addCriterion("carfrom between", value1, value2, "carfrom");
-            return (Criteria) this;
-        }
-
-        public Criteria andCarfromNotBetween(String value1, String value2) {
-            addCriterion("carfrom not between", value1, value2, "carfrom");
             return (Criteria) this;
         }
 

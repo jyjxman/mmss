@@ -2,6 +2,10 @@ package com.mmss.pojo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SysExport {
     private Long id;
 
@@ -60,7 +64,8 @@ public class SysExport {
     public void setPriceunit(String priceunit) {
         this.priceunit = priceunit == null ? null : priceunit.trim();
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getExpodate() {
         return expodate;
     }

@@ -3,9 +3,8 @@
 <script type="text/javascript">
     $(function() {
 
-
         $('#userAddForm').form({
-            url : '${path }/caroil/add',
+            url : '${path }/caraccident/add',
             onSubmit : function() {
                 progressLoad();
                 var isValid = $(this).form('validate');
@@ -31,20 +30,26 @@
 <div class="easyui-layout" data-options="fit:true,border:false">
     <div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 3px;">
         <form id="userAddForm" method="post">
-          <table class="grid">
+            <table class="grid">
+               <tr>
+                    <td>车辆编号</td>
+                    <td><input name="carid" type="text" class="easyui-validatebox" data-options="required:true" value="" placeholder="请输入车辆编号" ></td>
+                     <td>事故发生地</td>
+                    <td><input name="address" type="text" placeholder="请输入事故发生地" class="easyui-validatebox" data-options="required:true" value=""></td>
+               </tr>
                 <tr>
-                    <td>汽车编号</td>
-                   <td> <input name="carid" type="text" placeholder="请输入汽车编号" class="easyui-validatebox" data-options="required:true" value=""></td>
-                    <td>燃油类型</td>
-                    <td><input name="fueltype"  type="text" placeholder="请输入燃油类型" class="easyui-validatebox" data-options="required:true" value=""></td>
-                </tr>
-                <tr>
-                    <td>物资类型</td>
-                    <td><input name="unitprice" type="text" placeholder="请输入单价" class="easyui-validatebox" data-options="required:true" value=""></td>                     
+                    <td>所需金额</td>
+                    <td><input name="price" type="text" placeholder="请输入所需金额" class="easyui-validatebox" data-options="required:true" value=""></td>
                     <td>单位</td>
-                    <td><input name="uint" type="text" placeholder="请输入单位" class="easyui-validatebox" data-options="required:true" value=""></td>                     
+                    <td><input name="unit" type="text" placeholder="请输入单位" class="easyui-validatebox" data-options="required:true" value=""></td>
                 </tr>
-              </table>
+                <tr>
+                <td>事故发生时间</td>
+               <td> <input name="time" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" /></td>
+                <td>描述</td>
+                <td> <textarea name="reason" style="height:60px;"></textarea></td>
+                </tr>
+            </table>
         </form>
     </div>
 </div>

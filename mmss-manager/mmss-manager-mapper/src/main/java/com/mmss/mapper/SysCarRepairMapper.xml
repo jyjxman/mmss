@@ -10,6 +10,19 @@
     <result column="unit" property="unit" jdbcType="VARCHAR" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
   </resultMap>
+  
+    <resultMap id="CarRepairMap" type="com.mmss.vo.CarRepairVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="carid" property="carid" jdbcType="BIGINT" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="carnum" property="carnum" jdbcType="VARCHAR" />
+
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -240,4 +253,24 @@
       reason = #{reason,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <select id="queryCarRepairByCodition" parameterType="java.util.Map" resultMap="CarRepairMap">
+  	SELECT a.id,a.carid,a.time,a.address,a.price,a.unit,a.reason,b.carnum,b.`name` 
+  	FROM sys_car_repair a,sys_car b WHERE b.id = a.carid
+  	<if test="carid != null">
+  		and a.carid = #{carid,jdbcType=BIGINT}
+    </if>
+      <if test="startTime != null">
+  	  <![CDATA[
+  		and time >= #{startTime,jdbcType=TIMESTAMP}
+  		  ]]>
+    </if>
+    <if test="endTime != null">
+    	<![CDATA[
+  		and time <= #{endTime,jdbcType=TIMESTAMP}
+  		]]>
+    </if>
+    </select>
 </mapper>

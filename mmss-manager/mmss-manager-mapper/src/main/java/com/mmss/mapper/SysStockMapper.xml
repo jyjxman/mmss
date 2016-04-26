@@ -10,6 +10,7 @@
     <result column="expoPrice" property="expoprice" jdbcType="REAL" />
     <result column="priceUnit" property="priceunit" jdbcType="VARCHAR" />
     <result column="stockDesc" property="stockdesc" jdbcType="VARCHAR" />
+    <result column="updatDate" property="updatdate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, material_id, repository_id, stockNum, impoPrice, expoPrice, priceUnit, stockDesc
+    id, material_id, repository_id, stockNum, impoPrice, expoPrice, priceUnit, stockDesc, 
+    updatDate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysStockExample" >
     select
@@ -105,10 +107,12 @@
   <insert id="insert" parameterType="com.mmss.pojo.SysStock" >
     insert into sys_stock (id, material_id, repository_id, 
       stockNum, impoPrice, expoPrice, 
-      priceUnit, stockDesc)
+      priceUnit, stockDesc, updatDate
+      )
     values (#{id,jdbcType=BIGINT}, #{materialId,jdbcType=BIGINT}, #{repositoryId,jdbcType=BIGINT}, 
       #{stocknum,jdbcType=INTEGER}, #{impoprice,jdbcType=REAL}, #{expoprice,jdbcType=REAL}, 
-      #{priceunit,jdbcType=VARCHAR}, #{stockdesc,jdbcType=VARCHAR})
+      #{priceunit,jdbcType=VARCHAR}, #{stockdesc,jdbcType=VARCHAR}, #{updatdate,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysStock" >
     insert into sys_stock
@@ -137,6 +141,9 @@
       <if test="stockdesc != null" >
         stockDesc,
       </if>
+      <if test="updatdate != null" >
+        updatDate,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -162,6 +169,9 @@
       </if>
       <if test="stockdesc != null" >
         #{stockdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updatdate != null" >
+        #{updatdate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -198,6 +208,9 @@
       <if test="record.stockdesc != null" >
         stockDesc = #{record.stockdesc,jdbcType=VARCHAR},
       </if>
+      <if test="record.updatdate != null" >
+        updatDate = #{record.updatdate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +225,8 @@
       impoPrice = #{record.impoprice,jdbcType=REAL},
       expoPrice = #{record.expoprice,jdbcType=REAL},
       priceUnit = #{record.priceunit,jdbcType=VARCHAR},
-      stockDesc = #{record.stockdesc,jdbcType=VARCHAR}
+      stockDesc = #{record.stockdesc,jdbcType=VARCHAR},
+      updatDate = #{record.updatdate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +255,9 @@
       <if test="stockdesc != null" >
         stockDesc = #{stockdesc,jdbcType=VARCHAR},
       </if>
+      <if test="updatdate != null" >
+        updatDate = #{updatdate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -252,7 +269,8 @@
       impoPrice = #{impoprice,jdbcType=REAL},
       expoPrice = #{expoprice,jdbcType=REAL},
       priceUnit = #{priceunit,jdbcType=VARCHAR},
-      stockDesc = #{stockdesc,jdbcType=VARCHAR}
+      stockDesc = #{stockdesc,jdbcType=VARCHAR},
+      updatDate = #{updatdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

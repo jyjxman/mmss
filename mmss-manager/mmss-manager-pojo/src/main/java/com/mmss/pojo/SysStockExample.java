@@ -1,6 +1,7 @@
 package com.mmss.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SysStockExample {
@@ -601,6 +602,66 @@ public class SysStockExample {
 
         public Criteria andStockdescNotBetween(String value1, String value2) {
             addCriterion("stockDesc not between", value1, value2, "stockdesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateIsNull() {
+            addCriterion("updatDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateIsNotNull() {
+            addCriterion("updatDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateEqualTo(Date value) {
+            addCriterion("updatDate =", value, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateNotEqualTo(Date value) {
+            addCriterion("updatDate <>", value, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateGreaterThan(Date value) {
+            addCriterion("updatDate >", value, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateGreaterThanOrEqualTo(Date value) {
+            addCriterion("updatDate >=", value, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateLessThan(Date value) {
+            addCriterion("updatDate <", value, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateLessThanOrEqualTo(Date value) {
+            addCriterion("updatDate <=", value, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateIn(List<Date> values) {
+            addCriterion("updatDate in", values, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateNotIn(List<Date> values) {
+            addCriterion("updatDate not in", values, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateBetween(Date value1, Date value2) {
+            addCriterion("updatDate between", value1, value2, "updatdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatdateNotBetween(Date value1, Date value2) {
+            addCriterion("updatDate not between", value1, value2, "updatdate");
             return (Criteria) this;
         }
     }

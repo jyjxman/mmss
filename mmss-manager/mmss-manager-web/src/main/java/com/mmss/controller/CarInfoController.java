@@ -1,5 +1,6 @@
 package com.mmss.controller;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,80 +16,79 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
-import com.mmss.pojo.SysRepository;
-import com.mmss.service.user.RepositoryService;
+import com.mmss.pojo.SysCar;
+import com.mmss.service.user.CarInfoService;
 import com.mmss.utils.EasyUIResult;
 import com.mmss.utils.OtherResult;
+import com.mmss.vo.CarVo;
 
 @Controller
-@RequestMapping("/repository")
-public class RepositoryController extends BaseController{
-	private static Logger LOGGER = LoggerFactory.getLogger(RepositoryController.class);
+@RequestMapping("/car")
+public class CarInfoController extends BaseController{	
+	private static Logger LOGGER = LoggerFactory.getLogger(CarInfoController.class);
 	@Autowired
-	private RepositoryService repositoryService;
-	
+	private CarInfoService carInfoService;
 	
 	/**
-     * 仓库资源树
+     * 车辆信息页面
      *
      * @return
      */
-   /* @RequestMapping(value = "/tree", method = RequestMethod.POST)
-    @ResponseBody
-    public List<DTree> tree() {
-        List<DTree> trees = repositoryService.findTree();
-        return trees;
+    @RequestMapping(value = "/manager", method = RequestMethod.GET)
+    public String manager() {
+        return "/car/car";
     }
-*/
-	@RequestMapping(value="/manager", method=RequestMethod.GET)
-	public String manager(){
-		
-		return "material/repository";
-	}
-	@RequestMapping(value="/dataGrid",method=RequestMethod.POST)
+    @RequestMapping(value="/dataGrid",method=RequestMethod.POST)
 	@ResponseBody
-	public EasyUIResult dataGrid(SysRepository repository, Integer page, Integer rows){
+	public EasyUIResult dataGrid(CarVo carVo,Integer page, Integer rows){
 		Map<String, Object> map = Maps.newHashMap();
-		if (StringUtils.isNoneBlank(repository.getRepositoryName())) {
-			map.put("name", repository.getRepositoryName());
+		if (StringUtils.isNoneBlank(carVo.getName())) {
+			map.put("name", carVo.getName());
+		}
+		if (carVo.getCreatedateStart() != null) {
+			
+			map.put("startTime", carVo.getCreatedateStart());
+		}
+		if (carVo.getCreatedateEnd() != null) {
+			map.put("endTime", carVo.getCreatedateEnd());
 		}
 		
-		PageInfo<SysRepository> pageInfo = repositoryService.findDataGrid(map, page , rows);
+		PageInfo<SysCar> pageInfo = carInfoService.findDataGrid(map, page , rows);
 		return new EasyUIResult(pageInfo.getTotal(), pageInfo.getList());
 		
 	}
-	
-	
+
 	   @RequestMapping(value = "/addPage", method = RequestMethod.GET)
 	    public String addPage() {
-	        return "/material/repositoryAdd";
+	        return "/car/carAdd";
 	    }
 	   
 	
 
 	    /**
-	     * 添加仓库
+	     * 添加物资
 	     *
 	     * @param organization
 	     * @return
 	     */
 	    @RequestMapping("/add")
 	    @ResponseBody
-	    public OtherResult add(SysRepository repository) {
+	    public OtherResult add(SysCar car) {
 	    	OtherResult result = new OtherResult();
 	        try {
-	        	repositoryService.addRepository(repository);
+	        	car.setCreattime(new Date());
+	        	carInfoService.addCar(car);
 	            result.setSuccess(true);
 	            result.setMsg("添加成功！");
 	            return result;
 	        } catch (RuntimeException e) {
-	            LOGGER.info("添加仓库失败：{}", e);
+	            LOGGER.info("添加车辆信息失败：{}", e);
 	            result.setMsg(e.getMessage());
 	            return result;
 	        }
 	    }
 	    /**
-	     * 编辑仓库页
+	     * 编辑车辆信息页
 	     *
 	     * @param request
 	     * @param id
@@ -96,35 +96,35 @@ public class RepositoryController extends BaseController{
 	     */
 	    @RequestMapping("/editPage")
 	    public String editPage(HttpServletRequest request, Long id) {
-	        SysRepository repository = repositoryService.findRepositoryById(id);
-	        request.setAttribute("repository", repository);
-	        return "/material/repositoryEdit";
+	        SysCar car = carInfoService.findCarById(id);
+	        request.setAttribute("car", car);
+	        return "/car/carEdit";
 	    }
 
 	    /**
-	     * 编辑仓库
+	     * 编辑车辆信息
 	     *
-	     * @param repository
+	     * @param car
 	     * @return
 	     */
 	    @RequestMapping("/edit")
 	    @ResponseBody
-	    public OtherResult edit(SysRepository repository) {
+	    public OtherResult edit(SysCar car) {
 	    	OtherResult result = new OtherResult();
 	        try {
-	            repositoryService.updateRepository(repository);
+	        	carInfoService.updateCar(car);
 	            result.setSuccess(true);
 	            result.setMsg("编辑成功！");
 	            return result;
 	        } catch (RuntimeException e) {
-	            LOGGER.info("编辑仓库失败：{}", e);
+	            LOGGER.info("编辑车辆信息失败：{}", e);
 	            result.setMsg(e.getMessage());
 	            return result;
 	        }
 	    }
 
 	    /**
-	     * 删除仓库
+	     * 删除车辆信息
 	     *
 	     * @param id
 	     * @return
@@ -134,14 +134,15 @@ public class RepositoryController extends BaseController{
 	    public OtherResult delete(Long id) {
 	    	OtherResult result = new OtherResult();
 	        try {
-	            repositoryService.deleteRepositoryById(id);
+	        	carInfoService.deleteCarById(id);
 	            result.setMsg("删除成功！");
 	            result.setSuccess(true);
 	            return result;
 	        } catch (RuntimeException e) {
-	            LOGGER.info("删除仓库失败：{}", e);
+	            LOGGER.info("删除车辆信息失败：{}", e);
 	            result.setMsg(e.getMessage());
 	            return result;
 	        }
 	    }
+
 }

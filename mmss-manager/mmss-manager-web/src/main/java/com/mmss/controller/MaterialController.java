@@ -111,7 +111,7 @@ public class MaterialController extends BaseController{
 	    }
 
 	    /**
-	     * 删除仓库
+	     * 删除物资
 	     *
 	     * @param id
 	     * @return
@@ -126,7 +126,7 @@ public class MaterialController extends BaseController{
 	            result.setSuccess(true);
 	            return result;
 	        } catch (RuntimeException e) {
-	            LOGGER.info("删除部门失败：{}", e);
+	            LOGGER.info("删除物资失败：{}", e);
 	            result.setMsg(e.getMessage());
 	            return result;
 	        }

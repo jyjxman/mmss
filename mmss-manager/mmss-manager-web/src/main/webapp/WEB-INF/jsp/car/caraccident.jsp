@@ -14,49 +14,61 @@
     $(function() {
 
         dataGrid = $('#dataGrid').datagrid({
-            url : '${path }/material/dataGrid',
+            url : '${path }/caraccident/dataGrid',
             fit : true,
             striped : true,
             rownumbers : true,
             pagination : true,
             singleSelect : true,
-            idField : 'id',
+            sortName : 'time',
+            sortOrder : 'asc',
             pageSize : 20,
             pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
             columns : [ [ {
-                width : '150',
-                title : '物资名称',
-                field : 'materialName',
-                sortable : true
-            }, {
-                width : '150',
-                title : '规格',
-                field : 'specifications',
+                width : '100',
+                title : '汽车编号',
+                field : 'carid',
                 sortable : true
             },{
-                width : '150',
-                title : '类型',
-                field : 'materialType',
+                width : '100',
+                title : '车辆名称',
+                field : 'name',
+                sortable : true
+            }, {
+                width : '100',
+                title : '事故发生地',
+                field : 'address',
+                sortable : true
+            },{
+                width : '100',
+                title : '所需费用',
+                field : 'price',
                 sortable : true
             },{
                 width : '100',
                 title : '单位',
-                field : 'measureUnit',
+                field : 'unit',
                 sortable : true
             },{
-                width : '300',
-                title : '物资描述',
-                field : 'materialDesc'
+                width : '130',
+                title : '事故发生时间',
+                field : 'time',
+                sortable : true
+            },{
+                width : '200',
+                title : '事故原因',
+                field : 'reason',
+                sortable : true
             }, {
                 field : 'action',
                 title : '操作',
                 width : 130,
                 formatter : function(value, row, index) {
                     var str = '';
-                        <shiro:hasPermission name="material:edit">
+                        <shiro:hasPermission name="caraccident:edit">
                             str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'icon-edit\'" onclick="editFun(\'{0}\');" >编辑</a>', row.id);
                         </shiro:hasPermission>
-                        <shiro:hasPermission name="material:del">
+                        <shiro:hasPermission name="caraccident:del">
                             str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
                             str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-del" data-options="plain:true,iconCls:\'icon-del\'" onclick="deleteFun(\'{0}\');" >删除</a>', row.id);
                         </shiro:hasPermission>
@@ -76,7 +88,7 @@
             title : '添加',
             width : 500,
             height : 300,
-            href : '${path }/material/addPage',
+            href : '${path }/caraccident/addPage',
             buttons : [ {
                 text : '添加',
                 handler : function() {
@@ -100,7 +112,7 @@
                 var currentUserId = '${sessionInfo.id}';/*当前登录用户的ID*/
                 if (currentUserId != id) {
                     progressLoad();
-                    $.post('${path }/material/delete', {
+                    $.post('${path }/caraccident/delete', {
                         id : id
                     }, function(result) {
                         if (result.success) {
@@ -130,7 +142,7 @@
             title : '编辑',
             width : 500,
             height : 300,
-            href : '${path }/material/editPage?id=' + id,
+            href : '${path }/caraccident/editPage?id=' + id,
             buttons : [ {
                 text : '确定',
                 handler : function() {
@@ -156,20 +168,22 @@
         <form id="searchForm">
             <table>
                 <tr>
-                    <th>物资名称:</th>
-                    <td><input name="materialName" placeholder="请输入物资名称"/></td>
+                    <th>车辆编号:</th>
+                    <td><input name="carid" placeholder="请输入车辆编号"/></td>
+                    <th>事故发生时间:</th>
                     <td>
+                    <input name="createdateStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />至<input  name="createdateEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />
                     <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchFun();">查询</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="cleanFun();">清空</a>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
-    <div data-options="region:'center',border:true,title:'仓库列表'" >
+    <div data-options="region:'center',border:true,title:'车辆事故列表'" >
         <table id="dataGrid" data-options="fit:true,border:false"></table>
     </div>
     <div id="toolbar" style="display: none;">
-        <shiro:hasPermission name="material:add">
+        <shiro:hasPermission name="caraccident:add">
             <a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加</a>
         </shiro:hasPermission>
     </div>

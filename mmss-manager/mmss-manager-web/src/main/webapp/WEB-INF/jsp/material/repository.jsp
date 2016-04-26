@@ -90,7 +90,7 @@
         } else {//点击操作里面的删除图标会触发这个
             dataGrid.datagrid('unselectAll').datagrid('uncheckAll');
         }
-        $.messager.confirm('询问', '您是否要删除当前用户？', function(b) {
+        $.messager.confirm('询问', '您是否要删除这条记录？', function(b) {
             if (b) {
                 var currentUserId = '${sessionInfo.id}';/*当前登录用户的ID*/
                 if (currentUserId != id) {

@@ -2,7 +2,11 @@ package com.mmss.mapper;
 
 import com.mmss.pojo.SysCarAccident;
 import com.mmss.pojo.SysCarAccidentExample;
+import com.mmss.vo.CarAccidentVo;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysCarAccidentMapper {
@@ -27,4 +31,6 @@ public interface SysCarAccidentMapper {
     int updateByPrimaryKeySelective(SysCarAccident record);
 
     int updateByPrimaryKey(SysCarAccident record);
+
+	List<CarAccidentVo> queryCarAccidentByCodition(Map<String, Object> map);
 }

@@ -3,6 +3,8 @@ package com.mmss.mapper;
 import com.mmss.pojo.SysCar;
 import com.mmss.pojo.SysCarExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysCarMapper {
@@ -27,4 +29,6 @@ public interface SysCarMapper {
     int updateByPrimaryKeySelective(SysCar record);
 
     int updateByPrimaryKey(SysCar record);
+
+	List<SysCar> queryCarByName(Map<String, Object> map);
 }

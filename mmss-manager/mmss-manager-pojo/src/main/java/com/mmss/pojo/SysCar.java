@@ -1,9 +1,21 @@
 package com.mmss.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysCar {
-    private Long id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class SysCar implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8563022099513279447L;
+
+	private Long id;
+
+    private String carnum;
 
     private String name;
 
@@ -13,11 +25,9 @@ public class SysCar {
 
     private Float weight;
 
-    private String carnum;
+    private String unit;
 
     private String status;
-
-    private String carfrom;
 
     private String remark;
 
@@ -31,6 +41,14 @@ public class SysCar {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCarnum() {
+        return carnum;
+    }
+
+    public void setCarnum(String carnum) {
+        this.carnum = carnum == null ? null : carnum.trim();
     }
 
     public String getName() {
@@ -65,12 +83,12 @@ public class SysCar {
         this.weight = weight;
     }
 
-    public String getCarnum() {
-        return carnum;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setCarnum(String carnum) {
-        this.carnum = carnum == null ? null : carnum.trim();
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
     }
 
     public String getStatus() {
@@ -81,14 +99,6 @@ public class SysCar {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getCarfrom() {
-        return carfrom;
-    }
-
-    public void setCarfrom(String carfrom) {
-        this.carfrom = carfrom == null ? null : carfrom.trim();
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -96,7 +106,8 @@ public class SysCar {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getCreattime() {
         return creattime;
     }

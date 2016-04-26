@@ -3,13 +3,13 @@
 <mapper namespace="com.mmss.mapper.SysCarMapper" >
   <resultMap id="BaseResultMap" type="com.mmss.pojo.SysCar" >
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="carnum" property="carnum" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="specification" property="specification" jdbcType="VARCHAR" />
     <result column="weight" property="weight" jdbcType="REAL" />
-    <result column="carnum" property="carnum" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
-    <result column="carfrom" property="carfrom" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="CHAR" />
@@ -73,8 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, type, specification, weight, carnum, status, carfrom, remark, creattime, 
-    state
+    id, carnum, name, type, specification, weight, unit, status, remark, creattime, state
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysCarExample" >
     select
@@ -107,13 +106,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysCar" >
-    insert into sys_car (id, name, type, 
-      specification, weight, carnum, 
-      status, carfrom, remark, 
+    insert into sys_car (id, carnum, name, 
+      type, specification, weight, 
+      unit, status, remark, 
       creattime, state)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{specification,jdbcType=VARCHAR}, #{weight,jdbcType=REAL}, #{carnum,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{carfrom,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{carnum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{weight,jdbcType=REAL}, 
+      #{unit,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
       #{creattime,jdbcType=TIMESTAMP}, #{state,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysCar" >
@@ -121,6 +120,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="carnum != null" >
+        carnum,
       </if>
       <if test="name != null" >
         name,
@@ -134,14 +136,11 @@
       <if test="weight != null" >
         weight,
       </if>
-      <if test="carnum != null" >
-        carnum,
+      <if test="unit != null" >
+        unit,
       </if>
       <if test="status != null" >
         status,
-      </if>
-      <if test="carfrom != null" >
-        carfrom,
       </if>
       <if test="remark != null" >
         remark,
@@ -157,6 +156,9 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="carnum != null" >
+        #{carnum,jdbcType=VARCHAR},
+      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
@@ -169,14 +171,11 @@
       <if test="weight != null" >
         #{weight,jdbcType=REAL},
       </if>
-      <if test="carnum != null" >
-        #{carnum,jdbcType=VARCHAR},
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=CHAR},
-      </if>
-      <if test="carfrom != null" >
-        #{carfrom,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -201,6 +200,9 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.carnum != null" >
+        carnum = #{record.carnum,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -213,14 +215,11 @@
       <if test="record.weight != null" >
         weight = #{record.weight,jdbcType=REAL},
       </if>
-      <if test="record.carnum != null" >
-        carnum = #{record.carnum,jdbcType=VARCHAR},
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=CHAR},
-      </if>
-      <if test="record.carfrom != null" >
-        carfrom = #{record.carfrom,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -239,13 +238,13 @@
   <update id="updateByExample" parameterType="map" >
     update sys_car
     set id = #{record.id,jdbcType=BIGINT},
+      carnum = #{record.carnum,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       specification = #{record.specification,jdbcType=VARCHAR},
       weight = #{record.weight,jdbcType=REAL},
-      carnum = #{record.carnum,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=CHAR},
-      carfrom = #{record.carfrom,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
       creattime = #{record.creattime,jdbcType=TIMESTAMP},
       state = #{record.state,jdbcType=CHAR}
@@ -256,6 +255,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.mmss.pojo.SysCar" >
     update sys_car
     <set >
+      <if test="carnum != null" >
+        carnum = #{carnum,jdbcType=VARCHAR},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -268,14 +270,11 @@
       <if test="weight != null" >
         weight = #{weight,jdbcType=REAL},
       </if>
-      <if test="carnum != null" >
-        carnum = #{carnum,jdbcType=VARCHAR},
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
-      </if>
-      <if test="carfrom != null" >
-        carfrom = #{carfrom,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -291,16 +290,36 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysCar" >
     update sys_car
-    set name = #{name,jdbcType=VARCHAR},
+    set carnum = #{carnum,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
       weight = #{weight,jdbcType=REAL},
-      carnum = #{carnum,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
-      carfrom = #{carfrom,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       creattime = #{creattime,jdbcType=TIMESTAMP},
       state = #{state,jdbcType=CHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  
+  <select id="queryCarByName" parameterType="java.util.Map" resultMap="BaseResultMap"> 
+  select
+  <include refid="Base_Column_List" />
+  from sys_car where 1=1
+  	<if test="name != null">
+  		and name = #{name,jdbcType=VARCHAR}
+    </if>
+  <if test="startTime != null">
+  	  <![CDATA[
+  		and creattime >= #{startTime,jdbcType=TIMESTAMP}
+  		  ]]>
+    </if>
+    <if test="endTime != null">
+    	<![CDATA[
+  		and creattime <= #{endTime,jdbcType=TIMESTAMP}
+  		]]>
+    </if>
+  </select>
 </mapper>

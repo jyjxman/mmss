@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1 , user-scalable=no">
-<title>采购单创建</title>
+<title>物资调度单创建</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -49,7 +49,7 @@ function yycgdsave_callback(data) {
 					<TABLE cellSpacing=0 cellPadding=0 width="100%">
 						<TBODY>
 							<TR>
-								<TD>&nbsp;药品采购单</TD>
+								<TD>&nbsp;物资调度单</TD>
 								<TD align=right>&nbsp;</TD>
 							</TR>
 						</TBODY>
