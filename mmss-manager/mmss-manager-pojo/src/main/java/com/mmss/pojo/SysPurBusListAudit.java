@@ -1,28 +1,36 @@
 package com.mmss.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysPurBusListAudit {
-    private Long id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class SysPurBusListAudit implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8812684391586301438L;
+
+	private String id;
 
     private String userid;
 
-    private Long listid;
+    private String listid;
 
     private String auditinfo;
 
     private String audittype;
 
-    private String status;
-
     private Date createtime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getUserid() {
@@ -33,12 +41,12 @@ public class SysPurBusListAudit {
         this.userid = userid == null ? null : userid.trim();
     }
 
-    public Long getListid() {
+    public String getListid() {
         return listid;
     }
 
-    public void setListid(Long listid) {
-        this.listid = listid;
+    public void setListid(String listid) {
+        this.listid = listid == null ? null : listid.trim();
     }
 
     public String getAuditinfo() {
@@ -56,15 +64,8 @@ public class SysPurBusListAudit {
     public void setAudittype(String audittype) {
         this.audittype = audittype == null ? null : audittype.trim();
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getCreatetime() {
         return createtime;
     }

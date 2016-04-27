@@ -10,7 +10,7 @@ public interface SysPurBusListMapper {
 
     int deleteByExample(SysPurBusListExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     int insert(SysPurBusList record);
 
@@ -18,7 +18,7 @@ public interface SysPurBusListMapper {
 
     List<SysPurBusList> selectByExample(SysPurBusListExample example);
 
-    SysPurBusList selectByPrimaryKey(Long id);
+    SysPurBusList selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") SysPurBusList record, @Param("example") SysPurBusListExample example);
 

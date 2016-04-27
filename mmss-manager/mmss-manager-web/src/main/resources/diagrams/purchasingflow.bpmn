@@ -2,12 +2,12 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="purchasingflow" name="采购流程" isExecutable="true">
     <startEvent id="startevent1" name="Start" activiti:initiator="startUserid"></startEvent>
-    <userTask id="submitOrder" name="提交物资调度单" activiti:assignee="${startUserid}" activiti:formKey="/Schedule/edit.do"></userTask>
-    <userTask id="checkOrder" name="审核物资调度单" activiti:candidateGroups="s0102" activiti:formKey="/Schedule/check.do"></userTask>
+    <userTask id="submitOrder" name="提交物资调度单" activiti:candidateGroups="5"></userTask>
+    <userTask id="checkOrder" name="审核物资调度单" activiti:candidateGroups="3"></userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="submitOrder"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="submitOrder" targetRef="checkOrder"></sequenceFlow>
-    <userTask id="disposeOrder" name="受理物资调度单" activiti:candidateGroups="s0103" activiti:formKey="/Schedule/dispose.do"></userTask>
+    <userTask id="disposeOrder" name="受理物资调度单" activiti:candidateGroups="4"></userTask>
     <sequenceFlow id="flow4" sourceRef="disposeOrder" targetRef="endevent1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="checkOrder" targetRef="exclusivegateway1"></sequenceFlow>

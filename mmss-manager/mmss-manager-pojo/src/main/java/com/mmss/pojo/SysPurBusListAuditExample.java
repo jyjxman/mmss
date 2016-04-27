@@ -115,52 +115,62 @@ public class SysPurBusListAuditExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
+        public Criteria andIdEqualTo(String value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
+        public Criteria andIdNotEqualTo(String value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
+        public Criteria andIdGreaterThan(String value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
+        public Criteria andIdLessThan(String value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
+        public Criteria andIdLessThanOrEqualTo(String value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<String> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
+        public Criteria andIdNotIn(List<String> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
+        public Criteria andIdBetween(String value1, String value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
+        public Criteria andIdNotBetween(String value1, String value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -245,52 +255,62 @@ public class SysPurBusListAuditExample {
             return (Criteria) this;
         }
 
-        public Criteria andListidEqualTo(Long value) {
+        public Criteria andListidEqualTo(String value) {
             addCriterion("listId =", value, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidNotEqualTo(Long value) {
+        public Criteria andListidNotEqualTo(String value) {
             addCriterion("listId <>", value, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidGreaterThan(Long value) {
+        public Criteria andListidGreaterThan(String value) {
             addCriterion("listId >", value, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidGreaterThanOrEqualTo(Long value) {
+        public Criteria andListidGreaterThanOrEqualTo(String value) {
             addCriterion("listId >=", value, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidLessThan(Long value) {
+        public Criteria andListidLessThan(String value) {
             addCriterion("listId <", value, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidLessThanOrEqualTo(Long value) {
+        public Criteria andListidLessThanOrEqualTo(String value) {
             addCriterion("listId <=", value, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidIn(List<Long> values) {
+        public Criteria andListidLike(String value) {
+            addCriterion("listId like", value, "listid");
+            return (Criteria) this;
+        }
+
+        public Criteria andListidNotLike(String value) {
+            addCriterion("listId not like", value, "listid");
+            return (Criteria) this;
+        }
+
+        public Criteria andListidIn(List<String> values) {
             addCriterion("listId in", values, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidNotIn(List<Long> values) {
+        public Criteria andListidNotIn(List<String> values) {
             addCriterion("listId not in", values, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidBetween(Long value1, Long value2) {
+        public Criteria andListidBetween(String value1, String value2) {
             addCriterion("listId between", value1, value2, "listid");
             return (Criteria) this;
         }
 
-        public Criteria andListidNotBetween(Long value1, Long value2) {
+        public Criteria andListidNotBetween(String value1, String value2) {
             addCriterion("listId not between", value1, value2, "listid");
             return (Criteria) this;
         }
@@ -432,76 +452,6 @@ public class SysPurBusListAuditExample {
 
         public Criteria andAudittypeNotBetween(String value1, String value2) {
             addCriterion("auditType not between", value1, value2, "audittype");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNull() {
-            addCriterion("status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNotNull() {
-            addCriterion("status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusEqualTo(String value) {
-            addCriterion("status =", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotEqualTo(String value) {
-            addCriterion("status <>", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThan(String value) {
-            addCriterion("status >", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("status >=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThan(String value) {
-            addCriterion("status <", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThanOrEqualTo(String value) {
-            addCriterion("status <=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLike(String value) {
-            addCriterion("status like", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotLike(String value) {
-            addCriterion("status not like", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIn(List<String> values) {
-            addCriterion("status in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotIn(List<String> values) {
-            addCriterion("status not in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusBetween(String value1, String value2) {
-            addCriterion("status between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotBetween(String value1, String value2) {
-            addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
 

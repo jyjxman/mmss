@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mmss.mapper.SysPurBusListAuditMapper" >
   <resultMap id="BaseResultMap" type="com.mmss.pojo.SysPurBusListAudit" >
-    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="userId" property="userid" jdbcType="VARCHAR" />
-    <result column="listId" property="listid" jdbcType="BIGINT" />
+    <result column="listId" property="listid" jdbcType="VARCHAR" />
     <result column="auditInfo" property="auditinfo" jdbcType="VARCHAR" />
     <result column="auditType" property="audittype" jdbcType="CHAR" />
-    <result column="status" property="status" jdbcType="CHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userId, listId, auditInfo, auditType, status, createtime
+    id, userId, listId, auditInfo, auditType, createtime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysPurBusListAuditExample" >
     select
@@ -85,15 +84,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from sys_pur_bus_list_audit
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from sys_pur_bus_list_audit
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.mmss.pojo.SysPurBusListAuditExample" >
     delete from sys_pur_bus_list_audit
@@ -103,11 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysPurBusListAudit" >
     insert into sys_pur_bus_list_audit (id, userId, listId, 
-      auditInfo, auditType, status, 
-      createtime)
-    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{listid,jdbcType=BIGINT}, 
-      #{auditinfo,jdbcType=VARCHAR}, #{audittype,jdbcType=CHAR}, #{status,jdbcType=CHAR}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      auditInfo, auditType, createtime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{listid,jdbcType=VARCHAR}, 
+      #{auditinfo,jdbcType=VARCHAR}, #{audittype,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysPurBusListAudit" >
     insert into sys_pur_bus_list_audit
@@ -127,31 +126,25 @@
       <if test="audittype != null" >
         auditType,
       </if>
-      <if test="status != null" >
-        status,
-      </if>
       <if test="createtime != null" >
         createtime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
       </if>
       <if test="listid != null" >
-        #{listid,jdbcType=BIGINT},
+        #{listid,jdbcType=VARCHAR},
       </if>
       <if test="auditinfo != null" >
         #{auditinfo,jdbcType=VARCHAR},
       </if>
       <if test="audittype != null" >
         #{audittype,jdbcType=CHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=CHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
@@ -168,22 +161,19 @@
     update sys_pur_bus_list_audit
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.userid != null" >
         userId = #{record.userid,jdbcType=VARCHAR},
       </if>
       <if test="record.listid != null" >
-        listId = #{record.listid,jdbcType=BIGINT},
+        listId = #{record.listid,jdbcType=VARCHAR},
       </if>
       <if test="record.auditinfo != null" >
         auditInfo = #{record.auditinfo,jdbcType=VARCHAR},
       </if>
       <if test="record.audittype != null" >
         auditType = #{record.audittype,jdbcType=CHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=CHAR},
       </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
@@ -195,12 +185,11 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sys_pur_bus_list_audit
-    set id = #{record.id,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=VARCHAR},
       userId = #{record.userid,jdbcType=VARCHAR},
-      listId = #{record.listid,jdbcType=BIGINT},
+      listId = #{record.listid,jdbcType=VARCHAR},
       auditInfo = #{record.auditinfo,jdbcType=VARCHAR},
       auditType = #{record.audittype,jdbcType=CHAR},
-      status = #{record.status,jdbcType=CHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,7 +202,7 @@
         userId = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="listid != null" >
-        listId = #{listid,jdbcType=BIGINT},
+        listId = #{listid,jdbcType=VARCHAR},
       </if>
       <if test="auditinfo != null" >
         auditInfo = #{auditinfo,jdbcType=VARCHAR},
@@ -221,23 +210,19 @@
       <if test="audittype != null" >
         auditType = #{audittype,jdbcType=CHAR},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=CHAR},
-      </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mmss.pojo.SysPurBusListAudit" >
     update sys_pur_bus_list_audit
     set userId = #{userid,jdbcType=VARCHAR},
-      listId = #{listid,jdbcType=BIGINT},
+      listId = #{listid,jdbcType=VARCHAR},
       auditInfo = #{auditinfo,jdbcType=VARCHAR},
       auditType = #{audittype,jdbcType=CHAR},
-      status = #{status,jdbcType=CHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

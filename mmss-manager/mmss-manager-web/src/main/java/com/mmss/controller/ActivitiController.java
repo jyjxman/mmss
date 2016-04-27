@@ -19,6 +19,8 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -31,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -301,6 +304,97 @@ public class ActivitiController {
 	        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
 	        return bpmnModel;
 	    }
+	    
+	    
+	 // 流程定义资源文件查看
+		@RequestMapping("/queryProcessDefinitionResource")
+		/**
+		 * 
+		 * <p>Title: queryProcessDefinitionResource</p>
+		 * <p>Description: </p>
+		 * @param response  输出 对象
+		 * @param processDefinitionId 流程定义id
+		 * @param resourcesType 资源 文件类型（bpmn和png）
+		 * @throws Exception
+		 */
+		public void queryProcessDefinitionResource(HttpServletResponse response,
+				String processDefinitionId, String resourceType) throws Exception {
+
+			// 根据流程定义id获取流程定义对象
+			ProcessDefinition processDefinition = repositoryService
+					.createProcessDefinitionQuery()
+					.processDefinitionId(processDefinitionId).singleResult();
+			// 部署id
+			String deploymentId = processDefinition.getDeploymentId();
+
+			// 资源 文件名称
+			String resourceName = null;
+
+			if (resourceType.equals("bpmn")) {
+				// bpmn资源文件名称
+				resourceName = processDefinition.getResourceName();
+
+			} else if (resourceType.equals("png")) {
+				// png资源文件名称
+				resourceName = processDefinition.getDiagramResourceName();
+
+			}
+			// 资源 文件输入流
+			InputStream inputStream = repositoryService.getResourceAsStream(
+					deploymentId, resourceName);
+
+			// 流复制
+
+			byte[] b = new byte[1024];
+
+			int len = -1;
+			while ((len = inputStream.read(b, 0, 1024)) != -1) {
+				response.getOutputStream().write(b, 0, len);
+			}
+
+		}
+	    
+	 // 动态图形
+		// 当前运行流程中当前结点图形
+		@RequestMapping("/queryActivityMap")
+		public String queryActivityMap(Model model, String processInstanceId)
+				throws Exception {
+
+			// 根据 流程实例的id查询出流程实例 的对象，从对象 中获取processDefinitionId。
+
+			ProcessInstance processInstance = runtimeService
+					.createProcessInstanceQuery()
+					.processInstanceId(processInstanceId).singleResult();
+
+			String processDefinitionId = processInstance.getProcessDefinitionId();
+
+			// 将流程定义 id传到页面，用于图形显示
+			model.addAttribute("processDefinitionId", processDefinitionId);
+
+			// 根据流程实例 id processInstanceId，获取当前结点
+			String activityId = processInstance.getActivityId();
+
+			// 根据 流程定义 id查询流程定义 实体对象
+			ProcessDefinitionEntity processDefinitionEntity = (ProcessDefinitionEntity) repositoryService
+					.getProcessDefinition(processDefinitionId);
+			
+			//从流程定义 实体对象查询结点的坐标和宽高
+			ActivityImpl activityImpl =  processDefinitionEntity.findActivity(activityId);
+			int activity_x= activityImpl.getX();//坐标
+			int activity_y = activityImpl.getY();//坐标
+			int activity_width =  activityImpl.getWidth();//宽
+			int activity_height = activityImpl.getHeight();//高
+			
+			model.addAttribute("activity_x",activity_x);
+			model.addAttribute("activity_y", activity_y);
+			model.addAttribute("activity_width", activity_width);
+			model.addAttribute("activity_height", activity_height);
+			
+			
+
+			return "/workflow/queryActivityMap";
+
+		}
 
 	    @Autowired
 	    public void setWorkflowProcessDefinitionService(WorkflowProcessDefinitionService workflowProcessDefinitionService) {
