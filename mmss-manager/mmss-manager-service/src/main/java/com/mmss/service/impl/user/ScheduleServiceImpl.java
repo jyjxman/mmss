@@ -2,7 +2,9 @@ package com.mmss.service.impl.user;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
@@ -63,7 +65,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 				// 启动流程实例
 				ProcessInstance processInstance = runtimeService
 						.startProcessInstanceByKey(processDefinitionKey, businessKey);
-
+				identityService.setAuthenticatedUserId(userId);
 				// 启动的流程实例id
 				String processInstance_id = processInstance.getProcessInstanceId();
 
@@ -151,8 +153,30 @@ public class ScheduleServiceImpl implements ScheduleService{
 				.taskAssignee(userid).singleResult();
 
 		if (task != null) {
-			// 说明assignee是该任务的办理人，有权限完成
-			taskService.complete(taskId);
+			
+			ListCustom listCustom = new ListCustom();
+
+			// 根据 任务对象 获取流程实例 id
+			String processInstanceId = task.getProcessInstanceId();
+			// 查询流程实例 对象
+			ProcessInstance processInstance = runtimeService
+					.createProcessInstanceQuery()
+					.processInstanceId(processInstanceId).singleResult();
+			// 从流程实例 对象 中获取businessKey
+			String businessKey = processInstance.getBusinessKey();
+			// 根据 businessKey查询采购单信息
+			
+			SysPurBusList purBusOrder = sysPurBusListMapper.selectByPrimaryKey(businessKey);
+			
+			BeanUtils.copyProperties(purBusOrder, listCustom);
+			
+			//流程变量，值 为orderCustom即采购单信息
+			Map<String, Object> variables = new HashMap<String, Object>();
+			variables.put("order", listCustom);
+
+			// 设置流程变量，值 为采购单信息
+			taskService.complete(taskId,variables);
+			
 			// System.out.println("完成任务：" + taskId);
 		}
 	}
@@ -175,8 +199,14 @@ public class ScheduleServiceImpl implements ScheduleService{
 						.taskAssignee(userid).singleResult();
 
 				if (task != null) {
+					Map<String, Object> variables = new HashMap<>();
+					if (audittype.equals("checkOrder")) {
+						variables.put("firstAudit", listAuditCustom);
+					}else if (audittype.equals("disposeOrder")) {
+						variables.put("secondAudit", listAuditCustom);
+					}
 					// 说明assignee是该任务的办理人，有权限完成
-					taskService.complete(taskId);
+					taskService.complete(taskId,variables);
 					// System.out.println("完成任务：" + taskId);
 				}
 
@@ -351,7 +381,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 		// 设置查询条件
 		// 指定流程定义key，只查询某个业务流程的实例
 		String processDefinitionKey = ResourcesUtil.getValue(
-				"diagram.purchasingflow", "purchasingProcessDefinitionKey");
+				"diagrams.purchasingflow", "purchasingProcessDefinitionKey");
 		historicProcessInstanceQuery.processDefinitionKey(processDefinitionKey);
 
 		// 设置只查询已完成的流程实例

@@ -2,7 +2,11 @@ package com.mmss.mapper;
 
 import com.mmss.pojo.SysImport;
 import com.mmss.pojo.SysImportExample;
+import com.mmss.vo.ImportVo;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysImportMapper {
@@ -27,4 +31,6 @@ public interface SysImportMapper {
     int updateByPrimaryKeySelective(SysImport record);
 
     int updateByPrimaryKey(SysImport record);
+
+	List<ImportVo> queryImportlByCondition(Map<String, Object> map);
 }

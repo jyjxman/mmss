@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- 引用jquery easy ui的js库及css -->
-<LINK rel="stylesheet" type="text/css" href="${baseurl}js/easyui/styles/default.css">
 <%@ include file="/commons/basejs.jsp" %>
 <title>采购单审核</title>
 
@@ -25,7 +24,7 @@ function orderAudit(){
 
    <TBODY>
    <TR>
-				<TD background=images/r_0.gif width="100%">
+				<TD  width="100%">
 					<TABLE cellSpacing=0 cellPadding=0 width="100%">
 						<TBODY>
 							<TR>
@@ -47,7 +46,7 @@ function orderAudit(){
 								<TD height=30 width="15%" align=right >任务id/物资调度单id：</TD>
 								<TD class=category width="35%">
 								任务id：<input type="text" name="taskId" value="${taskId}"/><br/>
-								采购单id：<input type="text" name="orderId" value="${listId}"/>
+								调度单id：<input type="text" name="listId" value="${orderId}"/>
 								</TD>
 								
 								<TD height=30 width="15%" align=right >审核类型：</TD>
@@ -58,8 +57,8 @@ function orderAudit(){
 							<TR>
 								<TD height=30 width="15%" align=right >审核结果：</TD>
 								<TD class=category width="35%">
-								<input type="radio" name="orderAuditCustom.status" value="1"/>通过
-								<input type="radio" name="orderAuditCustom.status" value="0" />不通过
+								<input type="radio" name="listAuditCustom.status" value="1"/>通过
+								<input type="radio" name="listAuditCustom.status" value="0" />不通过
 								</TD>
 								<TD height=30 width="15%" align=right >审核意见</TD>
 								<TD class=category width="35%">

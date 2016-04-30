@@ -273,4 +273,35 @@
       expoDesc = #{expodesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+   <resultMap id="ExportMap" type="com.mmss.vo.ExportVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
+    <result column="expoPrice" property="expoprice" jdbcType="REAL" />
+    <result column="priceUnit" property="priceunit" jdbcType="VARCHAR" />
+    <result column="expoDate" property="expodate" jdbcType="TIMESTAMP" />
+    <result column="expoNum" property="exponum" jdbcType="INTEGER" />
+    <result column="numUnit" property="numunit" jdbcType="VARCHAR" />
+    <result column="expoDesc" property="expodesc" jdbcType="VARCHAR" />
+      <result column="repositoryName" property="repositoryName" jdbcType="VARCHAR" />
+    <result column="materialName" property="materialName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+    <select id="queryExportlByCondition" parameterType="java.util.Map" resultMap="ExportMap">
+  SELECT a.*,b.material_name as materialName,c.repository_name as repositoryName FROM sys_export a,sys_material b,sys_repository c WHERE a.material_id = b.id and a.repository_id = c.id
+  <if test="name != null">
+  	and b.material_name = #{name,jdbcType=VARCHAR}
+  	</if>
+  	<if test="startTime != null">
+  	  <![CDATA[
+  		and a.expoDate >= #{startTime,jdbcType=TIMESTAMP}
+  		  ]]>
+    </if>
+    <if test="endTime != null">
+    	<![CDATA[
+  		and a.expoDate <= #{endTime,jdbcType=TIMESTAMP}
+  		]]>
+    </if>
+  </select>
 </mapper>

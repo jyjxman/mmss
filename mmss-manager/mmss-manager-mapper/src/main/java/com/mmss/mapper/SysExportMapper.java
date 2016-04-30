@@ -2,7 +2,11 @@ package com.mmss.mapper;
 
 import com.mmss.pojo.SysExport;
 import com.mmss.pojo.SysExportExample;
+import com.mmss.vo.ExportVo;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysExportMapper {
@@ -27,4 +31,6 @@ public interface SysExportMapper {
     int updateByPrimaryKeySelective(SysExport record);
 
     int updateByPrimaryKey(SysExport record);
+
+	List<ExportVo> queryExportlByCondition(Map<String, Object> map);
 }

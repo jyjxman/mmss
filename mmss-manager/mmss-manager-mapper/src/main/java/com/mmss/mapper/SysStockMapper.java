@@ -2,7 +2,11 @@ package com.mmss.mapper;
 
 import com.mmss.pojo.SysStock;
 import com.mmss.pojo.SysStockExample;
+import com.mmss.vo.StockVo;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SysStockMapper {
@@ -27,4 +31,9 @@ public interface SysStockMapper {
     int updateByPrimaryKeySelective(SysStock record);
 
     int updateByPrimaryKey(SysStock record);
+
+	List<StockVo> queryStocklByCondition(Map<String, Object> map);
+
+	SysStock findStock(Map<String, Object> map);
+
 }

@@ -273,4 +273,35 @@
       impoDesc = #{impodesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <resultMap id="ImportMap" type="com.mmss.vo.ImportVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
+    <result column="impoPrice" property="impoprice" jdbcType="REAL" />
+    <result column="priceUnit" property="priceunit" jdbcType="VARCHAR" />
+    <result column="impoDate" property="impodate" jdbcType="TIMESTAMP" />
+    <result column="impoNum" property="imponum" jdbcType="INTEGER" />
+    <result column="numUnit" property="numunit" jdbcType="VARCHAR" />
+    <result column="impoDesc" property="impodesc" jdbcType="VARCHAR" />
+     <result column="repositoryName" property="repositoryName" jdbcType="VARCHAR" />
+    <result column="materialName" property="materialName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+    <select id="queryImportlByCondition" parameterType="java.util.Map" resultMap="ImportMap">
+  SELECT a.*,b.material_name as materialName,c.repository_name as repositoryName FROM sys_import a,sys_material b,sys_repository c WHERE a.material_id = b.id and a.repository_id = c.id
+  <if test="name != null">
+  	and b.material_name = #{name,jdbcType=VARCHAR}
+  	</if>
+  	<if test="startTime != null">
+  	  <![CDATA[
+  		and a.impoDate >= #{startTime,jdbcType=TIMESTAMP}
+  		  ]]>
+    </if>
+    <if test="endTime != null">
+    	<![CDATA[
+  		and a.impoDate <= #{endTime,jdbcType=TIMESTAMP}
+  		]]>
+    </if>
+  </select>
 </mapper>

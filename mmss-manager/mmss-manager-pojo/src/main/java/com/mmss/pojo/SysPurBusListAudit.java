@@ -3,15 +3,11 @@ package com.mmss.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class SysPurBusListAudit implements Serializable{
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 8812684391586301438L;
+	private static final long serialVersionUID = 8992922389570845905L;
 
 	private String id;
 
@@ -24,6 +20,8 @@ public class SysPurBusListAudit implements Serializable{
     private String audittype;
 
     private Date createtime;
+
+    private String status;
 
     public String getId() {
         return id;
@@ -64,13 +62,20 @@ public class SysPurBusListAudit implements Serializable{
     public void setAudittype(String audittype) {
         this.audittype = audittype == null ? null : audittype.trim();
     }
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     public Date getCreatetime() {
         return createtime;
     }
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

@@ -273,4 +273,43 @@
       updatDate = #{updatdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+    <resultMap id="StockMap" type="com.mmss.vo.StockVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
+    <result column="stockNum" property="stocknum" jdbcType="INTEGER" />
+    <result column="repositoryName" property="repositoryName" jdbcType="VARCHAR" />
+    <result column="materialName" property="materialName" jdbcType="VARCHAR" />
+    <result column="stockNum" property="stocknum" jdbcType="INTEGER" />
+    <result column="impoPrice" property="impoprice" jdbcType="REAL" />
+    <result column="expoPrice" property="expoprice" jdbcType="REAL" />
+    <result column="priceUnit" property="priceunit" jdbcType="VARCHAR" />
+    <result column="stockDesc" property="stockdesc" jdbcType="VARCHAR" />
+    <result column="updatDate" property="updatdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="queryStocklByCondition" parameterType="java.util.Map" resultMap="StockMap">
+  SELECT a.*,b.material_name as materialName,c.repository_name as repositoryName FROM sys_stock a,sys_material b,sys_repository c WHERE a.material_id = b.id and a.repository_id = c.id
+  <if test="name != null">
+  	and b.material_name = #{name,jdbcType=VARCHAR}
+  	</if>
+  	<if test="startTime != null">
+  	  <![CDATA[
+  		and a.updatDate >= #{startTime,jdbcType=TIMESTAMP}
+  		  ]]>
+    </if>
+    <if test="endTime != null">
+    	<![CDATA[
+  		and a.updatDate <= #{endTime,jdbcType=TIMESTAMP}
+  		]]>
+    </if>
+  </select>
+  
+  
+<select id="findStock" parameterType="java.util.Map" resultType="com.mmss.pojo.SysStock">
+select * FROM sys_stock where 
+material_id = #{material,jdbcType=BIGINT}
+and repository_id = #{repository,jdbcType=BIGINT}
+</select>
 </mapper>

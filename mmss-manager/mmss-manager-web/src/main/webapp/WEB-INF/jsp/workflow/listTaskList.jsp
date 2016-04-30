@@ -54,6 +54,7 @@
 					<td>负责人</td>
 					<td>物资调度单名称</td>
 					<td>指派车辆编号</td>
+					<td>申请调度内容</td>
 					<td>创建时间</td>
 					<td>任务类型</td>
 				</tr>
@@ -65,6 +66,7 @@
 						<td class=category>${order.processinstanceid }</td>
 						<td class=category>${order.assignee}</td>
 						<td class=category>${order.name}</td>
+						<td class=category>${order.content}</td>
 						<td class=category>${order.carid}</td>
 						<td class=category><fmt:formatDate value="${order.createtime}"
 								pattern="yyyy-MM-dd hh:mm:ss" /></td>
@@ -76,11 +78,11 @@
 
 							</c:if> <c:if test="${order.taskDefinitionKey=='checkOrder' }">
 								<a
-									href="${baseurl}/schedule/orderAudit.action?taskId=${order.taskId}&auditType=${order.taskDefinitionKey}&orderId=${order.id}">部门经理审核</a>
+									href="${baseurl}/schedule/orderAudit.action?taskId=${order.taskId}&auditType=${order.taskDefinitionKey}&listId=${order.id}">部门经理审核</a>
 
 							</c:if> <c:if test="${order.taskDefinitionKey=='disposeOrder' }">
 								<a
-									href="${baseurl}/schedule/orderAudit.action?taskId=${order.taskId}&auditType=${order.taskDefinitionKey}&orderId=${order.id}">总经理审核</a>
+									href="${baseurl}/schedule/orderAudit.action?taskId=${order.taskId}&auditType=${order.taskDefinitionKey}&listId=${order.id}">总经理审核</a>
 
 							</c:if> 
 						 

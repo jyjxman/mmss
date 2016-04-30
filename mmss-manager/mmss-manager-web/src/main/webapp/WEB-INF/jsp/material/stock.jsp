@@ -10,102 +10,67 @@
     <script type="text/javascript">
 
     var dataGrid;
-    var organizationTree;
-
-    $(function() {
-        organizationTree = $('#organizationTree').tree({
-            url : '${path }/organization/tree',
-            parentField : 'parentid',
-            lines : true,
-            onClick : function(node) {
-                dataGrid.datagrid('load', {
-                    deptId: node.id
-                });
-            }
-        });
+     $(function() {
+        
 
         dataGrid = $('#dataGrid').datagrid({
-            url : '${path }/user/dataGrid',
+            url : '${path }/stock/dataGrid',
             fit : true,
             striped : true,
             rownumbers : true,
             pagination : true,
             singleSelect : true,
-            idField : 'id',
-            sortName : 'createtime',
-            sortOrder : 'asc',
             pageSize : 20,
             pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
             columns : [ [ {
-                width : '80',
-                title : '登录名',
-                field : 'usercode',
+                width : '150',
+                title : '物资名称',
+                field : 'materialName',
                 sortable : true
             }, {
-                width : '80',
-                title : '姓名',
-                field : 'username',
+                width : '100',
+                title : '所属仓库',
+                field : 'repositoryName',
                 sortable : true
             },{
-                width : '80',
-                title : '部门ID',
-                field : 'deptId',
-                hidden : true
+                width : '100',
+                title : '库存数量',
+                field : 'stocknum',
+                sortable : true
             },{
-                width : '80',
-                title : '所属部门',
-                field : 'deptName'
+                width : '100',
+                title : '入库价格',
+                field : 'impoprice',
+                sortable : true
             },{
-                width : '130s',
-                title : '创建时间',
-                field : 'createtime',
+                width : '100',
+                title : '出库价格',
+                field : 'expoprice'
+            },{
+                width : '100',
+                title : '价格单位',
+                field : 'priceunit',
                 sortable : true
             }, {
-                width : '80',
-                title : '住址',
-                field : 'adreess',
+                width : '130',
+                title : '更新时间',
+                field : 'updatdate',
                 sortable : true
             },{
-                width : '120',
-                title : '电话',
-                field : 'phone',
+                width : '250',
+                title : '描述',
+                field : 'stockdesc',
                 sortable : true
-            }, 
-            {
-                width : '200',
-                title : '角色',
-                field : 'rolesList',
-                sortable : true,
-                formatter : function(value, row, index) {
-                    var roles = [];
-                    for(var i = 0; i< value.length; i++) {
-                        roles.push(value[i].name);  
-                    }
-                    return(roles.join('\n'));
-                }
-            },{
-                width : '60',
-                title : '状态',
-                field : 'locked',
-                sortable : true,
-                formatter : function(value, row, index) {
-                    switch (value) {
-                    case '0':
-                        return '正常';
-                    case '1':
-                        return '停用';
-                    }
-                }
             } , {
                 field : 'action',
                 title : '操作',
                 width : 130,
                 formatter : function(value, row, index) {
                     var str = '';
-                        <shiro:hasPermission name="user:edit">
+                        <shiro:hasPermission name="stock:edit">
                             str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'icon-edit\'" onclick="editFun(\'{0}\');" >编辑</a>', row.id);
                         </shiro:hasPermission>
-                        <shiro:hasPermission name="user:del">
+                        <shiro:hasPermission name="stock:del">
                             str += '&nbsp;&nbsp;|&nbsp;&nbsp;';
                             str += $.formatString('<a href="javascript:void(0)" class="user-easyui-linkbutton-del" data-options="plain:true,iconCls:\'icon-del\'" onclick="deleteFun(\'{0}\');" >删除</a>', row.id);
                         </shiro:hasPermission>
@@ -125,7 +90,7 @@
             title : '添加',
             width : 500,
             height : 300,
-            href : '${path }/user/addPage',
+            href : '${path }/stock/addPage',
             buttons : [ {
                 text : '添加',
                 handler : function() {
@@ -144,12 +109,12 @@
         } else {//点击操作里面的删除图标会触发这个
             dataGrid.datagrid('unselectAll').datagrid('uncheckAll');
         }
-        $.messager.confirm('询问', '您是否要删除当前用户？', function(b) {
+        $.messager.confirm('询问', '您是否要删除该条记录？', function(b) {
             if (b) {
                 var currentUserId = '${sessionInfo.id}';/*当前登录用户的ID*/
                 if (currentUserId != id) {
                     progressLoad();
-                    $.post('${path }/user/delete', {
+                    $.post('${path }/stock/delete', {
                         id : id
                     }, function(result) {
                         if (result.success) {
@@ -179,7 +144,7 @@
             title : '编辑',
             width : 500,
             height : 300,
-            href : '${path }/user/editPage?id=' + id,
+            href : '${path }/stock/editPage?id=' + id,
             buttons : [ {
                 text : '确定',
                 handler : function() {
@@ -205,9 +170,9 @@
         <form id="searchForm">
             <table>
                 <tr>
-                    <th>姓名:</th>
-                    <td><input name="username" placeholder="请输入用户姓名"/></td>
-                    <th>创建时间:</th>
+                    <th>物资名称:</th>
+                    <td><input name="materialName" placeholder="请输入物资名称"/></td>
+                    <th>更新时间:</th>
                     <td>
                     <input name="createdateStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />至<input  name="createdateEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />
                     <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchFun();">查询</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="cleanFun();">清空</a>
@@ -216,15 +181,12 @@
             </table>
         </form>
     </div>
-    <div data-options="region:'center',border:true,title:'用户列表'" >
+    <div data-options="region:'center',border:true,title:'库存列表'" >
         <table id="dataGrid" data-options="fit:true,border:false"></table>
     </div>
-    <div data-options="region:'west',border:true,split:false,title:'组织机构'"  style="width:150px;overflow: hidden; ">
-        <ul id="organizationTree"  style="width:160px;margin: 10px 10px 10px 10px">
-        </ul>
-    </div>
+   
     <div id="toolbar" style="display: none;">
-        <shiro:hasPermission name="user:add">
+        <shiro:hasPermission name="stock:add">
             <a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加</a>
         </shiro:hasPermission>
     </div>

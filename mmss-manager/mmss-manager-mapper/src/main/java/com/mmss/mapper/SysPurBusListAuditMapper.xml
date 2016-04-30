@@ -6,8 +6,9 @@
     <result column="userId" property="userid" jdbcType="VARCHAR" />
     <result column="listId" property="listid" jdbcType="VARCHAR" />
     <result column="auditInfo" property="auditinfo" jdbcType="VARCHAR" />
-    <result column="auditType" property="audittype" jdbcType="CHAR" />
+    <result column="auditType" property="audittype" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userId, listId, auditInfo, auditType, createtime
+    id, userId, listId, auditInfo, auditType, createtime, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmss.pojo.SysPurBusListAuditExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.mmss.pojo.SysPurBusListAudit" >
     insert into sys_pur_bus_list_audit (id, userId, listId, 
-      auditInfo, auditType, createtime
-      )
+      auditInfo, auditType, createtime, 
+      status)
     values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{listid,jdbcType=VARCHAR}, 
-      #{auditinfo,jdbcType=VARCHAR}, #{audittype,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}
-      )
+      #{auditinfo,jdbcType=VARCHAR}, #{audittype,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mmss.pojo.SysPurBusListAudit" >
     insert into sys_pur_bus_list_audit
@@ -129,6 +130,9 @@
       <if test="createtime != null" >
         createtime,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -144,10 +148,13 @@
         #{auditinfo,jdbcType=VARCHAR},
       </if>
       <if test="audittype != null" >
-        #{audittype,jdbcType=CHAR},
+        #{audittype,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -173,10 +180,13 @@
         auditInfo = #{record.auditinfo,jdbcType=VARCHAR},
       </if>
       <if test="record.audittype != null" >
-        auditType = #{record.audittype,jdbcType=CHAR},
+        auditType = #{record.audittype,jdbcType=VARCHAR},
       </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -189,8 +199,9 @@
       userId = #{record.userid,jdbcType=VARCHAR},
       listId = #{record.listid,jdbcType=VARCHAR},
       auditInfo = #{record.auditinfo,jdbcType=VARCHAR},
-      auditType = #{record.audittype,jdbcType=CHAR},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+      auditType = #{record.audittype,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=CHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -208,10 +219,13 @@
         auditInfo = #{auditinfo,jdbcType=VARCHAR},
       </if>
       <if test="audittype != null" >
-        auditType = #{audittype,jdbcType=CHAR},
+        auditType = #{audittype,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -221,8 +235,9 @@
     set userId = #{userid,jdbcType=VARCHAR},
       listId = #{listid,jdbcType=VARCHAR},
       auditInfo = #{auditinfo,jdbcType=VARCHAR},
-      auditType = #{audittype,jdbcType=CHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      auditType = #{audittype,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
