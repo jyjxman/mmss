@@ -11,7 +11,7 @@
 <link href="css/ace-skins.min.css" rel="stylesheet" />
 <link href="css/ace.min.css" rel="stylesheet" />
 <link href="${ctx}/css/style.css" rel="stylesheet">
-<title>物资调度管理系统</title>
+<title>物资管理调度系统</title>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top">
@@ -21,7 +21,7 @@
 				<span class="sr-only"></span> <span class="icon-bar"> </span> <span
 					class="icon-bar"> </span> <span class="icon-bar"></span>
 			</button>
-			<a href="#" class="navbar-brand"><i class="icon-lemon"></i>&nbsp;物资调度管理系统</a>
+			<a href="#" class="navbar-brand"><i class="icon-lemon"></i>&nbsp;物资管理调度系统</a>
 		</div>
 		<ul class="nav navbar-nav navbar-right" style="margin-right: 25px;">
 			<li><a href="#"><span class="badge"
@@ -42,11 +42,13 @@
 				<div class="row">
 					<div class="col-xs-12" style="padding-left: 5px;">
 						<ul class="nav nav-tabs" role="tablist">
-							<li class="active"><a href="#Index" role="tab"
+							<li class="active"><a href="#" role="tab"
 								data-toggle="tab">首页</a></li>
 						</ul>
 						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane active" id="Index"></div>
+							<div role="tabpanel" class="tab-pane active" id="Index">
+						<iframe width=100% height=600 name=aa frameborder=0 src="${ctx }/welcome"></iframe>
+							</div>
 						</div>
 					</div>
 				</div>

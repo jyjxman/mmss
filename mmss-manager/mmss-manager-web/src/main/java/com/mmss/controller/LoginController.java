@@ -30,7 +30,7 @@ public class LoginController {
 	}
 
 	// 欢迎页面
-	@RequestMapping("/welcome")
+	@RequestMapping("welcome")
 	public String welcome(Model model) throws Exception {
 
 		return "/welcome";

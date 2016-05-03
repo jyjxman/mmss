@@ -66,8 +66,9 @@
 						<td class=category>${order.processinstanceid }</td>
 						<td class=category>${order.assignee}</td>
 						<td class=category>${order.name}</td>
-						<td class=category>${order.content}</td>
 						<td class=category>${order.carid}</td>
+						<td class=category>${order.content}</td>
+						
 						<td class=category><fmt:formatDate value="${order.createtime}"
 								pattern="yyyy-MM-dd hh:mm:ss" /></td>
 						<td class=category>
