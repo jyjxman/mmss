@@ -40,7 +40,7 @@
 					<tr>
 						<td class=category>${order.taskId}</td>
 						<td class=category>${order.taskName }</td>
-						<td class=category>${order.assignee}</td>
+						<td class=category>${order.relName}</td>
 						<td class=category>${order.taskDefinitionKey}</td>
 						<td class=category><fmt:formatDate value="${order.task_startTime}"
 								pattern="yyyy-MM-dd hh:mm:ss" /></td>

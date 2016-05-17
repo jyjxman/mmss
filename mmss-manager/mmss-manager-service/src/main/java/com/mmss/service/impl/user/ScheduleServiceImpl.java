@@ -24,7 +24,9 @@ import org.springframework.stereotype.Service;
 
 import com.mmss.mapper.SysPurBusListAuditMapper;
 import com.mmss.mapper.SysPurBusListMapper;
+import com.mmss.mapper.SysUserMapper;
 import com.mmss.pojo.SysPurBusList;
+import com.mmss.pojo.SysUser;
 import com.mmss.service.user.ScheduleService;
 import com.mmss.utils.ResourcesUtil;
 import com.mmss.utils.UUIDBuild;
@@ -37,6 +39,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	private SysPurBusListMapper sysPurBusListMapper;
 	@Autowired
 	private SysPurBusListAuditMapper sysPurBusListAuditMapper;
+	@Autowired
+	private SysUserMapper sysUserMapper;
 	
 	@Autowired
 	private RuntimeService runtimeService;
@@ -138,7 +142,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 					listCustom.setTaskName(task.getName());
 					// 任务负责人
 					listCustom.setAssignee(task.getAssignee());
-
+					SysUser sysUser = sysUserMapper.selectByPrimaryKey(task.getAssignee());
+                    listCustom.setRelName(sysUser.getUsername());
 					orderList.add(listCustom);
 				}
 				return orderList;
@@ -290,6 +295,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 					listCustom.setTaskId(historicTaskInstance.getId());// 任务id
 					listCustom.setTaskName(historicTaskInstance.getName());// 任务名称
 					listCustom.setAssignee(historicTaskInstance.getAssignee());// 任务负责人
+					SysUser sysUser = sysUserMapper.selectByPrimaryKey(historicTaskInstance.getAssignee());
+					listCustom.setRelName(sysUser.getUsername());
 					listCustom.setTaskDefinitionKey(historicTaskInstance
 							.getTaskDefinitionKey());// 任务标识
 					listCustom.setTask_startTime(historicTaskInstance.getStartTime());// 任务开始时间

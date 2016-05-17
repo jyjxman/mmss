@@ -64,7 +64,7 @@
 						<td class=category>${order.taskName }</td>
 						<td class=category>${order.taskDefinitionKey }</td>
 						<td class=category>${order.processinstanceid }</td>
-						<td class=category>${order.assignee}</td>
+						<td class=category>${order.relName}</td>
 						<td class=category>${order.name}</td>
 						<td class=category>${order.carid}</td>
 						<td class=category>${order.content}</td>

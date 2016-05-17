@@ -35,6 +35,9 @@ public class ListCustom extends SysPurBusList{
 
 		// 任务开始执行时间
 		private Date task_startTime;
+		
+		//任务负责人姓名
+		private String relName;
 
 		// 任务结束执行时间
 		public Date task_endTime;
@@ -108,6 +111,14 @@ public class ListCustom extends SysPurBusList{
 
 		public void setTask_endTime(Date task_endTime) {
 			this.task_endTime = task_endTime;
+		}
+
+		public String getRelName() {
+			return relName;
+		}
+
+		public void setRelName(String relName) {
+			this.relName = relName;
 		}
 		
 		
