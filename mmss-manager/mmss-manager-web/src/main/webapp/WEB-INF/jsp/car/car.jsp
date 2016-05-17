@@ -205,7 +205,7 @@
             <table>
                 <tr>
                     <th>车辆名称:</th>
-                    <td><input name="name" placeholder="请输入用户姓名"/></td>
+                    <td><input name="name" placeholder="请输入车辆名称"/></td>
                     <th>购买时间:</th>
                     <td>
                     <input name="createdateStart" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />至<input  name="createdateEnd" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" />

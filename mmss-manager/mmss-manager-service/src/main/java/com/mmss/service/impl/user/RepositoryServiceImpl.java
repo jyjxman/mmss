@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.mmss.mapper.SysRepositoryMapper;
 import com.mmss.pojo.SysRepository;
 import com.mmss.service.user.RepositoryService;
@@ -49,8 +50,15 @@ public class RepositoryServiceImpl implements RepositoryService {
 
 	@Override
 	public List<DTree> findTree() {
-		// TODO Auto-generated method stub
-		return null;
+		 List<DTree> trees = Lists.newArrayList();
+		 List<SysRepository> repositories = sysRepositoryMapper.findRepositoryAll();
+		 for (SysRepository sysRepository : repositories) {
+			 DTree tree = new DTree();
+			 tree.setId(sysRepository.getId());
+			 tree.setText(sysRepository.getRepositoryName());
+			 trees.add(tree);
+		}
+		return trees;
 	}
 
 }

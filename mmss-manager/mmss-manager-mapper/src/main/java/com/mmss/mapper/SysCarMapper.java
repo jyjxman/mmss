@@ -31,4 +31,6 @@ public interface SysCarMapper {
     int updateByPrimaryKey(SysCar record);
 
 	List<SysCar> queryCarByName(Map<String, Object> map);
+
+	List<SysCar> findCaryAllByStatus();
 }

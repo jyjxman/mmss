@@ -1,9 +1,11 @@
 package com.mmss.service.user;
 
+import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
 import com.mmss.pojo.SysCar;
+import com.mmss.utils.DTree;
 
 public interface CarInfoService {
 
@@ -18,5 +20,7 @@ public interface CarInfoService {
 	void deleteCarById(Long id);
 
 	void updateCarStatusById(SysCar car);
+
+	List<DTree> findTree();
 
 }

@@ -31,4 +31,6 @@ public interface SysMaterialMapper {
     int updateByPrimaryKey(SysMaterial record);
 
 	List<SysMaterial> queryMaterialByName(Map<String, Object> map);
+
+	List<SysMaterial> findMaterialAll();
 }

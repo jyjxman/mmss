@@ -234,4 +234,9 @@
     where material_name = #{name,jdbcType=VARCHAR}
     </if>
   	</select>
+  	<select id="findMaterialAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_material
+    </select>
 </mapper>

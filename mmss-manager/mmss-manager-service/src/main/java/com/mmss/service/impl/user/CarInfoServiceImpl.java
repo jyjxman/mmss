@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.mmss.mapper.SysCarMapper;
 import com.mmss.pojo.SysCar;
 import com.mmss.service.user.CarInfoService;
+import com.mmss.utils.DTree;
 @Service
 @Transactional
 public class CarInfoServiceImpl implements CarInfoService {
@@ -43,6 +45,18 @@ public class CarInfoServiceImpl implements CarInfoService {
 	@Override
 	public void updateCarStatusById(SysCar car) {
 		sysCarMapper.updateByPrimaryKeySelective(car);
+	}
+	@Override
+	public List<DTree> findTree() {
+		 List<DTree> trees = Lists.newArrayList();
+		 List<SysCar> cars = sysCarMapper.findCaryAllByStatus();
+		 for (SysCar sysCar : cars) {
+			 DTree tree = new DTree();
+			 tree.setId(sysCar.getId());
+			 tree.setText(sysCar.getName());
+			 trees.add(tree);
+		}
+		return trees;
 	}
 
 }

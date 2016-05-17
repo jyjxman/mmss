@@ -216,4 +216,9 @@
     where repository_name = #{name,jdbcType=VARCHAR}
     </if>
   	</select>
+  	<select id="findRepositoryAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_repository
+    </select>
 </mapper>

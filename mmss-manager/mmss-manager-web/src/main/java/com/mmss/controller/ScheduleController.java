@@ -79,12 +79,12 @@ public class ScheduleController extends BaseController {
 
 		// 用户id
 		String userId = getCurrentUser().getId();
-		scheduleService.saveOrderAuditStauts(taskId, userId,listId, auditType, listVo.getListAuditCustom());
+		scheduleService.saveOrderAuditStauts(taskId, userId, listId, auditType, listVo.getListAuditCustom());
 
 		// 返回到采购单处理列表
 		return "redirect:listTaskList.do";
 	}
-	
+
 	// 当前运行采购流程查询
 	@RequestMapping("/queryActivityOrder")
 	public String queryActivityOrder(Model model) throws Exception {
@@ -95,54 +95,51 @@ public class ScheduleController extends BaseController {
 		return "/workflow/queryActivityOrder";
 
 	}
-	
+
 	// 结束流程查询
-		@RequestMapping("/queryHistoryOrder")
-		public String queryHistoryOrder(Model model) throws Exception {
+	@RequestMapping("/queryHistoryOrder")
+	public String queryHistoryOrder(Model model) throws Exception {
 
-			// 已结束的流程实例
-			List<ListCustom> list = scheduleService.findFinishedOrderList();
-			model.addAttribute("list", list);
+		// 已结束的流程实例
+		List<ListCustom> list = scheduleService.findFinishedOrderList();
+		model.addAttribute("list", list);
 
-			return "/workflow/queryHistoryOrder";
-		}
+		return "/workflow/queryHistoryOrder";
+	}
 
-		// 根据 流程实例 id查询历史任务
-		@RequestMapping("/queryOrderTaskByPid")
-		public String queryOrderTaskByPid(Model model, String processInstanceId)
-				throws Exception {
+	// 根据 流程实例 id查询历史任务
+	@RequestMapping("/queryOrderTaskByPid")
+	public String queryOrderTaskByPid(Model model, String processInstanceId) throws Exception {
 
-			List<ListCustom> list = scheduleService
-					.findOrderTaskListByPid(processInstanceId);
+		List<ListCustom> list = scheduleService.findOrderTaskListByPid(processInstanceId);
 
-			model.addAttribute("list", list);
+		model.addAttribute("list", list);
 
-			return "/workflow/queryOrderTaskByPid";
-		}
-		// 采购单组任务列表
-		@RequestMapping("/orderGroupTaskList")
-		public String orderGroupTaskList(Model model)
-				throws Exception {
-			
-			// 用户id
-			String userId = getCurrentUser().getId();
-			List<ListCustom> list = scheduleService.findOrderGroupTaskList(userId);
+		return "/workflow/queryOrderTaskByPid";
+	}
 
-			model.addAttribute("list", list);
+	// 采购单组任务列表
+	@RequestMapping("/orderGroupTaskList")
+	public String orderGroupTaskList(Model model) throws Exception {
 
-			return "/workflow/orderGroupTaskList";
-		}
+		// 用户id
+		String userId = getCurrentUser().getId();
+		List<ListCustom> list = scheduleService.findOrderGroupTaskList(userId);
 
-		// 拾取组任务
-		@RequestMapping("/claimTask")
-		public String claimTask(String taskId)
-				throws Exception {
-		
-			// 用户id
-			String userId = getCurrentUser().getId();
-			scheduleService.saveClaimTask(taskId, userId);
-			
-			//返回采购单组任务列表
-			return "redirect:orderGroupTaskList.action";
-		}
+		model.addAttribute("list", list);
+
+		return "/workflow/orderGroupTaskList";
+	}
+
+	// 拾取组任务
+	@RequestMapping("/claimTask")
+	public String claimTask(String taskId) throws Exception {
+
+		// 用户id
+		String userId = getCurrentUser().getId();
+		scheduleService.saveClaimTask(taskId, userId);
+
+		// 返回采购单组任务列表
+		return "redirect:orderGroupTaskList.action";
+	}
 }

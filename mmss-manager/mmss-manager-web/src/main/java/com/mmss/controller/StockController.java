@@ -33,20 +33,22 @@ public class StockController extends BaseController {
 	public String manager() {
 		return "/material/stock";
 	}
+
 	@RequestMapping(value = "/addPage", method = RequestMethod.GET)
 	public String addPage() {
 		return "/material/stockAdd";
 	}
+
 	@RequestMapping("/editPage")
 	public String editPage(HttpServletRequest request, Long id) {
 		SysStock stock = stockService.findStockById(id);
 		request.setAttribute("stock", stock);
 		return "/material/stockEdit";
 	}
-	
-	@RequestMapping(value="/dataGrid",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/dataGrid", method = RequestMethod.POST)
 	@ResponseBody
-	public EasyUIResult dataGrid(StockVo stockVo, Integer page, Integer rows){
+	public EasyUIResult dataGrid(StockVo stockVo, Integer page, Integer rows) {
 		Map<String, Object> map = Maps.newHashMap();
 		if (StringUtils.isNoneBlank(stockVo.getMaterialName())) {
 			map.put("name", stockVo.getMaterialName());
@@ -57,57 +59,58 @@ public class StockController extends BaseController {
 		if (stockVo.getCreatedateEnd() != null) {
 			map.put("endTime", stockVo.getCreatedateEnd());
 		}
-		PageInfo<StockVo> pageInfo = stockService.findDataGrid(map, page , rows);
+		PageInfo<StockVo> pageInfo = stockService.findDataGrid(map, page, rows);
 		return new EasyUIResult(pageInfo.getTotal(), pageInfo.getList());
-		
+
 	}
-    @RequestMapping("/add")
-    @ResponseBody
-    public OtherResult add(SysStock stock) {
-    	OtherResult result = new OtherResult();
-        try {
-        	stock.setUpdatdate(new Date());
-        	stockService.addStock(stock);
-            result.setSuccess(true);
-            result.setMsg("添加成功！");
-            return result;
-        } catch (RuntimeException e) {
-            LOGGER.info("添加库存失败：{}", e);
-            result.setMsg(e.getMessage());
-            return result;
-        }
-    }
-    
-    @RequestMapping("/edit")
-    @ResponseBody
-    public OtherResult edit(SysStock stock) {
-    	OtherResult result = new OtherResult();
-        try {
-        	stock.setUpdatdate(new Date());
-        	stockService.updateStock(stock);
-            result.setSuccess(true);
-            result.setMsg("编辑成功！");
-            return result;
-        } catch (RuntimeException e) {
-            LOGGER.info("编辑库存失败：{}", e);
-            result.setMsg(e.getMessage());
-            return result;
-        }
-    }
-    
-    @RequestMapping("/delete")
-    @ResponseBody
-    public OtherResult delete(Long id) {
-    	OtherResult result = new OtherResult();
-        try {
-        	stockService.deleteStockById(id);
-            result.setMsg("删除成功！");
-            result.setSuccess(true);
-            return result;
-        } catch (RuntimeException e) {
-            LOGGER.info("删除库存失败：{}", e);
-            result.setMsg(e.getMessage());
-            return result;
-        }
-    }
+
+	@RequestMapping("/add")
+	@ResponseBody
+	public OtherResult add(SysStock stock) {
+		OtherResult result = new OtherResult();
+		try {
+			stock.setUpdatdate(new Date());
+			stockService.addStock(stock);
+			result.setSuccess(true);
+			result.setMsg("添加成功！");
+			return result;
+		} catch (RuntimeException e) {
+			LOGGER.info("添加库存失败：{}", e);
+			result.setMsg(e.getMessage());
+			return result;
+		}
+	}
+
+	@RequestMapping("/edit")
+	@ResponseBody
+	public OtherResult edit(SysStock stock) {
+		OtherResult result = new OtherResult();
+		try {
+			stock.setUpdatdate(new Date());
+			stockService.updateStock(stock);
+			result.setSuccess(true);
+			result.setMsg("编辑成功！");
+			return result;
+		} catch (RuntimeException e) {
+			LOGGER.info("编辑库存失败：{}", e);
+			result.setMsg(e.getMessage());
+			return result;
+		}
+	}
+
+	@RequestMapping("/delete")
+	@ResponseBody
+	public OtherResult delete(Long id) {
+		OtherResult result = new OtherResult();
+		try {
+			stockService.deleteStockById(id);
+			result.setMsg("删除成功！");
+			result.setSuccess(true);
+			return result;
+		} catch (RuntimeException e) {
+			LOGGER.info("删除库存失败：{}", e);
+			result.setMsg(e.getMessage());
+			return result;
+		}
+	}
 }

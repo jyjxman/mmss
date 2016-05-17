@@ -55,14 +55,14 @@
                  <td><input type="text" name="unit" placeholder="请输入单位"  class="easyui-textbox"/></td>
                 </tr>
                 <tr>
-                    <td>用户状态</td>
+                    <td>车辆状态</td>
                     <td>
                         <select id="status" name="status" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
                                 <option value="0">闲</option>
                                 <option value="1">忙</option>
                         </select>
                     </td>
-                    <td>用户状态</td>
+                    <td>使用情况</td>
                     <td>
                         <select id="state" name="state" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'">
                                 <option value="0">停用</option>

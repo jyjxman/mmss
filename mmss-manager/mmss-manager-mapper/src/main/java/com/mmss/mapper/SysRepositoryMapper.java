@@ -31,4 +31,6 @@ public interface SysRepositoryMapper {
     int updateByPrimaryKey(SysRepository record);
 
 	List<SysRepository> queryRepositoryByName(Map<String, Object> map);
+
+	List<SysRepository> findRepositoryAll();
 }

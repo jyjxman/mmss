@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.mmss.mapper.SysMaterialMapper;
 import com.mmss.pojo.SysMaterial;
 import com.mmss.service.user.MaterialService;
+import com.mmss.utils.DTree;
 @Service
 @Transactional
 public class MaterialServiceImpl implements MaterialService {
@@ -43,6 +45,20 @@ public class MaterialServiceImpl implements MaterialService {
 	@Override
 	public void deleteMaterialById(Long id) {
      sysMaterialMapper.deleteByPrimaryKey(id);		
+	}
+
+	@Override
+	public List<DTree> findTree() {
+		 List<DTree> trees = Lists.newArrayList();
+		 List<SysMaterial> materials = sysMaterialMapper.findMaterialAll();
+		for (SysMaterial sysMaterial : materials) {
+			 DTree tree = new DTree();
+			 tree.setId(sysMaterial.getId());
+			 tree.setText(sysMaterial.getMaterialName());
+			 trees.add(tree);
+		}
+		return trees;
+	
 	}
 
 	

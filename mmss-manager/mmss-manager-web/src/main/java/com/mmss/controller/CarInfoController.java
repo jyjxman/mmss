@@ -1,6 +1,7 @@
 package com.mmss.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mmss.pojo.SysCar;
 import com.mmss.service.user.CarInfoService;
+import com.mmss.utils.DTree;
 import com.mmss.utils.EasyUIResult;
 import com.mmss.utils.OtherResult;
 import com.mmss.vo.CarVo;
@@ -57,6 +59,17 @@ public class CarInfoController extends BaseController{
 		return new EasyUIResult(pageInfo.getTotal(), pageInfo.getList());
 		
 	}
+    /**
+     * 车辆资源树
+     *
+     * @return
+     */
+    @RequestMapping(value = "/tree", method = RequestMethod.POST)
+    @ResponseBody
+    public List<DTree> tree() {
+        List<DTree> trees = carInfoService.findTree();
+        return trees;
+    }
 
 	   @RequestMapping(value = "/addPage", method = RequestMethod.GET)
 	    public String addPage() {
@@ -66,7 +79,7 @@ public class CarInfoController extends BaseController{
 	
 
 	    /**
-	     * 添加物资
+	     * 添加车辆
 	     *
 	     * @param organization
 	     * @return

@@ -322,4 +322,9 @@
   		]]>
     </if>
   </select>
+  <select id="findCaryAllByStatus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_car where status='0' and state='1'
+    </select>
 </mapper>
