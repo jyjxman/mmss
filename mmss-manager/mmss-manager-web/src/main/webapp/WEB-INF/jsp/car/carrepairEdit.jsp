@@ -46,9 +46,7 @@
                     <td><input name="unit" type="text" placeholder="请输入单位" class="easyui-validatebox" data-options="required:true" value="${carrepair.unit}"></td>
                 </tr>
                 <tr>
-                <td>修理时间</td>
-               <td> <input name="time" value="${carrepair.time}" placeholder="点击选择时间" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" /></td>
-                <td>描述</td>
+                    <td>描述</td>
                 <td> <textarea name="reason" style="height:60px;">${carrepair.reason}</textarea></td>
                 </tr>
             </table>
