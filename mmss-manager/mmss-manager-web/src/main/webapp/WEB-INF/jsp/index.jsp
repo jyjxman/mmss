@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -11,6 +12,7 @@
 <link href="css/ace-skins.min.css" rel="stylesheet" />
 <link href="css/ace.min.css" rel="stylesheet" />
 <link href="${ctx}/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> 
 <title>物资管理调度系统</title>
 </head>
 <body>

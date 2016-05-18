@@ -4,6 +4,7 @@
 <head>
 	<%@ include file="common/global.jsp"%>
 	<link href="${ctx}/css/login.css" rel="stylesheet">
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> 
 	<title>欢迎登录系统</title>
 	<script>
 	function randomcode_refresh(){
