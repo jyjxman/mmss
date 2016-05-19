@@ -294,9 +294,11 @@ public class ScheduleServiceImpl implements ScheduleService{
 
 					listCustom.setTaskId(historicTaskInstance.getId());// 任务id
 					listCustom.setTaskName(historicTaskInstance.getName());// 任务名称
+					if(historicTaskInstance.getAssignee() != null){
 					listCustom.setAssignee(historicTaskInstance.getAssignee());// 任务负责人
 					SysUser sysUser = sysUserMapper.selectByPrimaryKey(historicTaskInstance.getAssignee());
 					listCustom.setRelName(sysUser.getUsername());
+					}
 					listCustom.setTaskDefinitionKey(historicTaskInstance
 							.getTaskDefinitionKey());// 任务标识
 					listCustom.setTask_startTime(historicTaskInstance.getStartTime());// 任务开始时间

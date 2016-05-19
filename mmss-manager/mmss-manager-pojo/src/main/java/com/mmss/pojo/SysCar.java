@@ -30,7 +30,8 @@ public class SysCar implements Serializable{
     private String status;
 
     private String remark;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date creattime;
 
     private String state;

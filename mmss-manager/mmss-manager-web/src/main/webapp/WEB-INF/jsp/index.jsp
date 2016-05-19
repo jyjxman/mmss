@@ -44,7 +44,7 @@
 				<div class="row">
 					<div class="col-xs-12" style="padding-left: 5px;">
 						<ul class="nav nav-tabs" role="tablist">
-							<li class="active"><a href="#" role="tab"
+							<li class="active"><a href="${ctx }/welcome" role="tab"
 								data-toggle="tab">首页</a></li>
 						</ul>
 						<div class="tab-content">
