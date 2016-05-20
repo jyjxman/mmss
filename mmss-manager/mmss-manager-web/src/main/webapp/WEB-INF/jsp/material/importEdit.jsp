@@ -47,7 +47,7 @@
                 </tr>
            
                   <tr>
-                    <td>出库价格</td>
+                    <td>入库价格</td>
                     <td><input name="impoprice" type="text" placeholder="请输入入库价格" class="easyui-textbox" value="${port.impoprice }"></td>
                    <td>价格单位</td>
                     <td><input name="priceunit" type="text" placeholder="请输价格单位" class="easyui-textbox"value="${port.priceunit }"></td>
